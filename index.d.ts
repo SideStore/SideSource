@@ -1,5 +1,3 @@
-import { RouterType } from "itty-router";
-
 interface Options {
     camelCase?: boolean | null;
     entryPoint?: string | boolean | null;
@@ -7,5 +5,6 @@ interface Options {
 }
 
 declare module "esbuild-plugin-glob-import" {
+    // @ts-ignore
     export default function (options: Options): Plugin;
 }
