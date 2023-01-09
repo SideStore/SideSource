@@ -1,6 +1,8 @@
 import { components } from "@octokit/openapi-types";
 import { Endpoints } from "@octokit/types";
 
+import deepForEach from "./deepForEach";
+
 const sideStoreRepo = "naturecodevoid/SideStore";
 const metaRepo = "naturecodevoid/sidestore-meta";
 const maxCommitMessageLength = 50; // This controls what the commit message will be trimmed to when making nightly changelogs
@@ -12,7 +14,13 @@ export type ReleaseData = Endpoints["GET /repos/{owner}/{repo}/releases/tags/{ta
 const fetchApi = async (endpoint: string, prefix = "https://api.github.com", extraParams = {}) => {
     const data = await fetch(prefix + endpoint, { headers: { "User-Agent": "https://github.com/naturecodevoid/SideStore-source" }, ...extraParams });
     // Fix \n's in JSON breaking everything
-    if (!prefix) return JSON.parse((await data.text()).replaceAll("\\", "\\\\"));
+    if (!prefix) {
+        const json = JSON.parse((await data.text()).replaceAll("\\n", "\\\\n"));
+        deepForEach(json, (val, key, obj) => {
+            if (typeof val == "string") obj[key] = val.replaceAll("\\n", "\n");
+        });
+        return json;
+    }
     return data.json<any>();
 };
 

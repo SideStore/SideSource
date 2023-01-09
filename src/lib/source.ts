@@ -5,7 +5,7 @@ import type { parseReleaseData } from "./github";
 
 export function makeDefaultSource({ permissions, news, overrides }: { [i: string]: any }, parsed: Awaited<ReturnType<typeof parseReleaseData>>) {
     const source: Source = {
-        name: "SideStore Official",
+        name: "SideStore",
         identifier: "com.SideStore.SideStore",
         //sourceURL: "https://apps.sidestore.io",
         apps: [

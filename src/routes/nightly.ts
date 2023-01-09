@@ -12,11 +12,11 @@ export default function (router: RouterType) {
 
         const source: Source = {
             ...makeDefaultSource(everythingElse, parsed),
-            name: "SideStore Nightly",
+            name: "SideStore (Nightly)",
             identifier: "com.SideStore.SideStore.Nightly",
         };
 
-        set(source, "apps[0].name", "SideStore Nightly");
+        set(source, "apps[0].name", "SideStore (Nightly)");
 
         set(
             source,
