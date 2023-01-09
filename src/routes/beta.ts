@@ -13,6 +13,7 @@ export default function (router: RouterType) {
         const source: Source = {
             ...makeDefaultSource(everythingElse, parsed),
             name: "SideStore Beta",
+            identifier: "com.SideStore.SideStore.Beta",
         };
 
         set(source, "apps[0].name", "SideStore Beta");
