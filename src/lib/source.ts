@@ -1,9 +1,10 @@
+import { RouteHandler } from "itty-router";
 import { set } from "lodash";
 
 import { Source } from "../types/source";
-import type { parseReleaseData } from "./github";
+import { type Channel, parseReleaseData, getChannelData } from "./github";
 
-export function makeDefaultSource({ permissions, news, overrides }: { [i: string]: any }, parsed: Awaited<ReturnType<typeof parseReleaseData>>) {
+function makeDefaultSource({ permissions, news, overrides }: { [i: string]: any }, parsed: Awaited<ReturnType<typeof parseReleaseData>>) {
     const source: Source = {
         name: "SideStore",
         identifier: "com.SideStore.SideStore",
@@ -54,4 +55,28 @@ export function makeDefaultSource({ permissions, news, overrides }: { [i: string
     source.apps[0].size = source.apps[0].versions[0].size;
 
     return source;
+}
+
+export function createSourceRoute(channel: Channel, makeChanges: (source: Source) => void = () => {}): RouteHandler {
+    return async (req, _, ctx: ExecutionContext) => {
+        const { release, ...everythingElse } = await getChannelData(channel);
+        const parsed = await parseReleaseData(release);
+
+        const source: Source = makeDefaultSource(everythingElse, parsed);
+
+        makeChanges(source);
+
+        const res = new Response(JSON.stringify(source, null, "    "), {
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                "Access-Control-Allow-Origin": "*",
+                // TODO: make a route that requires a secret and if the secret is correct, would reset cache and allow for longer cache times
+                "Cache-Control": "max-age=900", // 15 minutes
+            },
+        });
+
+        ctx.waitUntil(caches.default.put(req as unknown as RequestInfo, res.clone()));
+
+        return res;
+    };
 }

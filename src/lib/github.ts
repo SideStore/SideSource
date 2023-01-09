@@ -8,7 +8,7 @@ const metaRepo = "naturecodevoid/sidestore-meta";
 const maxCommitMessageLength = 50; // This controls what the commit message will be trimmed to when making nightly changelogs
 const prefix = "Welcome to the next generation of sideloading! This update fixes and adds the following:"; // Stable auto-generated changelog prefix
 
-type Channel = "stable" | "beta" | "nightly";
+export type Channel = "stable" | "beta" | "nightly";
 export type ReleaseData = Endpoints["GET /repos/{owner}/{repo}/releases/tags/{tag}"]["response"]["data"];
 
 const fetchApi = async (endpoint: string, prefix = "https://api.github.com", extraParams = {}) => {
