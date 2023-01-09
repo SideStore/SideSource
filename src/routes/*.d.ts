@@ -1,4 +1,6 @@
 import { GlobImport } from "../types/globImport";
 import { Route } from "../types/route";
 
-export default {} as GlobImport<Route>;
+declare let _default: GlobImport<Route>;
+
+export default _default;
