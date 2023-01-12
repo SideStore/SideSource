@@ -53,6 +53,7 @@
 
     "news[0].title": "This is an override! (nightly)",
 
+    "apps[0].bundleIdentifier": "test",
     "apps[0].localizedDescription": "(override example) SideStore is an alternative app store for non-jailbroken devices.\n\nSideStore allows you to sideload other .ipa files and apps from the Files app or via the SideStore Library.",
     "apps[0].iconURL": "https://apps.sidestore.io/apps/sidestore/v0.1.1/icon.png",
     "apps[0].screenshotURLs": [
