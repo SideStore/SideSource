@@ -1,5 +1,5 @@
 import { RouterType } from "itty-router";
-import { set } from "lodash";
+import set from "lodash/set";
 
 import { createSourceRoute } from "../lib/source";
 

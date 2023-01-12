@@ -1,5 +1,5 @@
 /** https://github.com/moxystudio/js-deep-for-each (slightly modified and adapted for typescript) */
-import { isPlainObject } from "lodash";
+import isPlainObject from "lodash/isPlainObject";
 
 type Iterator = (val: any, key: string | number, currentObj: any, currentPath: string) => unknown;
 

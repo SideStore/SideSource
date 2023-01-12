@@ -1,5 +1,5 @@
 import { RouteHandler } from "itty-router";
-import { set } from "lodash";
+import set from "lodash/set";
 
 import { Source } from "../types/source";
 import { type Channel, parseReleaseData, getChannelData } from "./github";
