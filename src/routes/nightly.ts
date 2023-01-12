@@ -6,7 +6,7 @@ import { createSourceRoute } from "../lib/source";
 export default function (router: RouterType) {
     router.all(
         "/nightly",
-        createSourceRoute("nightly", (source) => {
+        createSourceRoute("nightly", 60 * 30 /* 30 minutes */, (source) => {
             set(source, "identifier", "com.SideStore.SideStore.Nightly");
 
             set(source, "name", "SideStore (Nightly)");

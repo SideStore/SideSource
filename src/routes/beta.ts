@@ -6,7 +6,7 @@ import { createSourceRoute } from "../lib/source";
 export default function (router: RouterType) {
     router.all(
         "/beta",
-        createSourceRoute("beta", (source) => {
+        createSourceRoute("beta", 60 * 60 /* 1 hour */, (source) => {
             set(source, "identifier", "com.SideStore.SideStore.Beta");
 
             set(source, "name", "SideStore (Beta)");

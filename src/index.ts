@@ -21,7 +21,9 @@ export default {
         const matched = await caches.default.match(req);
         if (matched) {
             console.log(`cache found for ${req.url}`);
-            return matched;
+            const res = matched.clone();
+            res.headers.set("X-Using-Cache", "true"); // mainly to ensure that the cache is working, might remove later
+            return res;
         }
 
         console.log(`no cache for ${req.url}`);

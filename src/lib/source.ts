@@ -54,7 +54,7 @@ function makeDefaultSource(overrides: Record<string, any>, parsed: Awaited<Retur
     return source;
 }
 
-export function createSourceRoute(channel: Channel, makeChanges: (source: Source) => void = () => {}): RouteHandler {
+export function createSourceRoute(channel: Channel, cacheTime: number, makeChanges: (source: Source) => void = () => {}): RouteHandler {
     return async (req, _, ctx: ExecutionContext) => {
         const { release, ...everythingElse } = await getChannelData(channel);
         const parsed = await parseReleaseData(release);
@@ -67,8 +67,7 @@ export function createSourceRoute(channel: Channel, makeChanges: (source: Source
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
                 "Access-Control-Allow-Origin": "*",
-                // TODO: make a route that requires a secret and if the secret is correct, would reset cache and allow for longer cache times
-                "Cache-Control": "max-age=900", // 15 minutes
+                "Cache-Control": "max-age=" + cacheTime,
             },
         });
 
