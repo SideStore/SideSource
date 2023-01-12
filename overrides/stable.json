@@ -1,0 +1,66 @@
+{
+    "news": [
+        {
+            "title": "Added More Sources!",
+            "identifier": "TrustedSource",
+            "caption": "Introducing PojavLauncher to SideStore!",
+            "tintColor": "912F8D",
+            "imageURL": "https://pbs.twimg.com/media/FjwYldzaYAAhqUS.jpg",
+            "url": "https://twitter.com/sidestore_io/status/1602182903450210305?s=46&t=_UKJO3_7BFa-fxf0F6jSHw",
+            "date": "2022-12-11",
+            "notify": true
+        },
+        {
+            "title": "#StandWithUkraine",
+            "identifier": "support-ukraine",
+            "caption": "Find out how you can help support those impacted by the Russian invasion.",
+            "tintColor": "003e80",
+            "imageURL": "https://user-images.githubusercontent.com/705880/156053447-a158cac7-df5f-4497-8025-15c3c2e10b48.png",
+            "url": "https://linktr.ee/razomforukraine",
+            "date": "2022-03-01",
+            "notify": false
+        },
+        {
+            "title": "Welcome to SideStore!",
+            "identifier": "welcome",
+            "caption": "Check out the Wiki page for more info",
+            "tintColor": "A405FA",
+            "url": "https://wiki.sidestore.io",
+            "date": "2050-01-02",
+            "notify": false
+        },
+        {
+            "title": "Proceed with Caution!",
+            "identifier": "caution",
+            "caption": "SideStore is currently pre-release software. Expect bugs, and please report them",
+            "tintColor": "FF0F0F",
+            "url": "https://github.com/SideStore/SideStore/issues",
+            "date": "2050-01-01",
+            "notify": false
+        }
+    ],
+
+    "apps[0].permissions": [
+        {
+            "type": "background-fetch",
+            "usageDescription": "SideStore periodically refreshes apps in the background to prevent them from expiring."
+        },
+        {
+            "type": "background-audio",
+            "usageDescription": "Allows SideStore to run longer than 30 seconds when refreshing apps in background."
+        }
+    ],
+
+    "news[0].title": "This is an override! (stable)",
+
+    "apps[0].localizedDescription": "(override example) SideStore is an alternative app store for non-jailbroken devices.\n\nSideStore allows you to sideload other .ipa files and apps from the Files app or via the SideStore Library.",
+    "apps[0].iconURL": "https://apps.sidestore.io/apps/sidestore/v0.1.1/icon.png",
+    "apps[0].screenshotURLs": [
+        "https://apps.sidestore.io/apps/sidestore/v0.1.1/browse-dark.png",
+        "https://apps.sidestore.io/apps/sidestore/v0.1.1/apps-dark.png",
+        "https://apps.sidestore.io/apps/sidestore/v0.1.1/news-dark.png",
+        "https://apps.sidestore.io/apps/sidestore/v0.1.1/browse-light.png",
+        "https://apps.sidestore.io/apps/sidestore/v0.1.1/apps-light.png",
+        "https://apps.sidestore.io/apps/sidestore/v0.1.1/news-light.png"
+    ]
+}
