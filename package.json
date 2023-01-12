@@ -21,6 +21,6 @@
     "scripts": {
         "dev": "wrangler dev",
         "deploy": "wrangler publish",
-        "format": "prettier --plugin @trivago/prettier-plugin-sort-imports --config ~/.prettierrc.json ./src --write"
+        "format": "prettier --plugin @trivago/prettier-plugin-sort-imports --config ~/.prettierrc.json ./src ./overrides --write"
     }
 }

@@ -4,7 +4,7 @@ import { Endpoints } from "@octokit/types";
 import deepForEach from "./deepForEach";
 
 const sideStoreRepo = "naturecodevoid/SideStore";
-const metaRepo = "naturecodevoid/sidestore-meta";
+const workerRepo = "naturecodevoid/SideStore-source"; // Used for overrides
 const maxCommitMessageLength = 50; // This controls what the commit message will be trimmed to when making nightly changelogs
 const prefix = "Welcome to the next generation of sideloading! This update fixes and adds the following:"; // Stable auto-generated changelog prefix
 
@@ -13,8 +13,8 @@ export type ReleaseData = Endpoints["GET /repos/{owner}/{repo}/releases/tags/{ta
 
 const fetchApi = async (endpoint: string, prefix = "https://api.github.com", extraParams = {}) => {
     const data = await fetch(prefix + endpoint, { headers: { "User-Agent": "https://github.com/naturecodevoid/SideStore-source" }, ...extraParams });
-    // Fix \n's in JSON breaking everything
     if (!prefix) {
+        // Fix \n's in JSON breaking everything
         const json = JSON.parse((await data.text()).replaceAll("\\n", "\\\\n"));
         deepForEach(json, (val, key, obj) => {
             if (typeof val == "string") obj[key] = val.replaceAll("\\n", "\n");
@@ -39,7 +39,7 @@ async function getCommitMessage(repo: string, sha: string) {
 export async function getChannelData(channel: Channel) {
     return {
         release: channel == "stable" ? await getLatestRelease(sideStoreRepo) : await getReleaseByTag(sideStoreRepo, channel),
-        ...(await fetchApi(`https://github.com/${metaRepo}/raw/main/${channel}.json`, "")),
+        overrides: await fetchApi(`https://github.com/${workerRepo}/raw/main/overrides/${channel}.json`, ""),
     };
 }
 

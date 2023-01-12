@@ -4,7 +4,7 @@ import { set } from "lodash";
 import { Source } from "../types/source";
 import { type Channel, parseReleaseData, getChannelData } from "./github";
 
-function makeDefaultSource({ permissions, news, overrides }: { [i: string]: any }, parsed: Awaited<ReturnType<typeof parseReleaseData>>) {
+function makeDefaultSource(overrides: Record<string, any>, parsed: Awaited<ReturnType<typeof parseReleaseData>>) {
     const source: Source = {
         name: "SideStore",
         identifier: "com.SideStore.SideStore",
@@ -27,8 +27,6 @@ function makeDefaultSource({ permissions, news, overrides }: { [i: string]: any 
                     "https://apps.sidestore.io/apps/sidestore/v0.1.1/news-light.png",
                 ],
 
-                permissions,
-
                 versions: [
                     {
                         version: parsed.version,
@@ -40,7 +38,6 @@ function makeDefaultSource({ permissions, news, overrides }: { [i: string]: any 
                 ],
             },
         ],
-        news,
     };
 
     for (const entry of Object.entries(overrides)) {
