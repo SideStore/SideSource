@@ -2,3 +2,6 @@ name = "sidestore-source"
 main = "src/index.ts"
 compatibility_date = "2023-01-08"
 esbuild_plugins = ["./esbuild-plugins.js"]
+routes = [
+    { pattern = "sidestore-apps.naturecodevoid.dev", custom_domain = true, zone_name = "naturecodevoid.dev" }
+]
