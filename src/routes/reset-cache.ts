@@ -6,7 +6,7 @@ export default function (router: RouterType) {
         if (req.params["key"] != env.KEY) return new Response("wrong key", { status: 500 });
 
         // if needed, we can use router.routes to find all registered routes instead of manually specifying them
-        for (const route of ["/", "/stable", "/beta", "/nightly"]) {
+        for (const route of ["", "/", "/stable", "/beta", "/nightly"]) {
             const url = req.url.replace(/\/reset-cache(.*)/g, "") + route;
             console.log(`reset cache for url: ${url}`);
             ctx.waitUntil(caches.default.delete(url, { ignoreMethod: true }) as any);
