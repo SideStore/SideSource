@@ -56,10 +56,10 @@ function makeDefaultSource(overrides: Record<string, any>, parsed: Awaited<Retur
 
 export function createSourceRoute(channel: Channel, cacheTime: number, makeChanges: (source: Source) => void = () => {}): RouteHandler {
     return async (req, _, ctx: ExecutionContext) => {
-        const { release, ...everythingElse } = await getChannelData(channel);
+        const { release, overrides } = await getChannelData(channel);
         const parsed = await parseReleaseData(release);
 
-        const source: Source = makeDefaultSource(everythingElse, parsed);
+        const source: Source = makeDefaultSource(overrides, parsed);
 
         makeChanges(source);
 
