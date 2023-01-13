@@ -18,5 +18,6 @@ export default function (router: RouterType) {
     });
 
     router.all("/beta", route(true));
+
     router.all("/preview/beta/:key", route(false));
 }

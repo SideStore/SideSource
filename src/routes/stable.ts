@@ -7,5 +7,6 @@ export default function (router: RouterType) {
 
     router.all("/", route(true));
     router.all("/stable", route(true));
+
     router.all("/preview/stable/:key", route(false));
 }

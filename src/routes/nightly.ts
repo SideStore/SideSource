@@ -18,5 +18,6 @@ export default function (router: RouterType) {
     });
 
     router.all("/nightly", route(true));
+
     router.all("/preview/nightly/:key", route(false));
 }
