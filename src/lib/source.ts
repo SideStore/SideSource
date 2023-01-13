@@ -3,6 +3,7 @@ import set from "lodash/set";
 
 import { Source } from "../types/source";
 import { type Channel, parseReleaseData, getChannelData } from "./github";
+import invalidKey from "./invalidKey";
 
 function makeDefaultSource(overrides: Record<string, any>, parsed: Awaited<ReturnType<typeof parseReleaseData>>) {
     const source: Source = {
@@ -54,12 +55,17 @@ function makeDefaultSource(overrides: Record<string, any>, parsed: Awaited<Retur
     return source;
 }
 
-export function createSourceRoute(channel: Channel, cacheTime: number, makeChanges: (source: Source) => void = () => {}): RouteHandler {
-    return async (req, _, ctx: ExecutionContext) => {
+export function createSourceRoute(channel: Channel, makeChanges: (source: Source) => void = () => {}): (cache: boolean) => RouteHandler {
+    return (cache) => async (req, env, ctx: ExecutionContext) => {
+        if (!cache) {
+            const invalid = invalidKey(req, env);
+            if (invalid) return invalid;
+        }
+
         const { release, overrides } = await getChannelData(channel);
         const parsed = await parseReleaseData(release);
 
-        const source: Source = makeDefaultSource(overrides, parsed);
+        const source = makeDefaultSource(overrides, parsed);
 
         makeChanges(source);
 
@@ -67,11 +73,13 @@ export function createSourceRoute(channel: Channel, cacheTime: number, makeChang
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
                 "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "max-age=" + cacheTime,
             },
         });
 
-        ctx.waitUntil(caches.default.put(req as unknown as RequestInfo, res.clone()));
+        if (cache) {
+            res.headers.set("Cache-Control", "max-age=14400"); // 4 hours
+            ctx.waitUntil(caches.default.put(req as unknown as RequestInfo, res.clone()));
+        }
 
         return res;
     };

@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@cloudflare/workers-types': ^4.20221111.1
   '@octokit/openapi-types': ^14.0.0
-  '@octokit/types': ^8.0.0
+  '@octokit/types': ^8.1.0
   '@trivago/prettier-plugin-sort-imports': ^4.0.0
   '@types/lodash': ^4.14.191
   esbuild-plugin-glob-import: ^0.2.0
@@ -11,7 +11,7 @@ specifiers:
   lodash: ^4.17.21
   prettier: ^2.8.2
   typescript: ^4.9.4
-  wrangler: github:naturecodevoid/wrangler2#wrangler-build
+  wrangler: github:naturecodevoid/wrangler2-esbuild-plugins#wrangler-build
 
 dependencies:
   '@types/lodash': 4.14.191
@@ -21,12 +21,12 @@ dependencies:
 devDependencies:
   '@cloudflare/workers-types': 4.20221111.1
   '@octokit/openapi-types': 14.0.0
-  '@octokit/types': 8.0.0
+  '@octokit/types': 8.1.0
   '@trivago/prettier-plugin-sort-imports': 4.0.0_prettier@2.8.2
   esbuild-plugin-glob-import: 0.2.0
   prettier: 2.8.2
   typescript: 4.9.4
-  wrangler: github.com/naturecodevoid/wrangler2/d70169a0768639c3043dec4c9def02648ec14a81
+  wrangler: github.com/naturecodevoid/wrangler2-esbuild-plugins/752932b004776164f4d20ec9c760ae185643d00f
 
 packages:
 
@@ -541,8 +541,8 @@ packages:
     resolution: {integrity: sha512-HNWisMYlR8VCnNurDU6os2ikx0s0VyEjDYHNS/h4cgb8DeOxQ0n72HyinUtdDVxJhFy3FWLGl0DJhfEWk3P5Iw==}
     dev: true
 
-  /@octokit/types/8.0.0:
-    resolution: {integrity: sha512-65/TPpOJP1i3K4lBJMnWqPUJ6zuOtzhtagDvydAWbEXpbFYA0oMKKyLb95NFZZP0lSh/4b6K+DQlzvYQJQQePg==}
+  /@octokit/types/8.1.0:
+    resolution: {integrity: sha512-N4nLjzkiWBqVQqljTTsCrbvHGoWdWfcCeZjbHdggw7a9HbJMnxbK8A+UWdqwR4out30JarlSa3eqKyVK0n5aBg==}
     dependencies:
       '@octokit/openapi-types': 14.0.0
     dev: true
@@ -619,7 +619,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001442
+      caniuse-lite: 1.0.30001443
       electron-to-chromium: 1.4.284
       node-releases: 2.0.8
       update-browserslist-db: 1.0.10_browserslist@4.21.4
@@ -642,8 +642,8 @@ packages:
       streamsearch: 1.1.0
     dev: true
 
-  /caniuse-lite/1.0.30001442:
-    resolution: {integrity: sha512-239m03Pqy0hwxYPYR5JwOIxRJfLTWtle9FV8zosfV5pHg+/51uD4nxcUlM8+mWWGfwKtt8lJNHnD3cWw9VZ6ow==}
+  /caniuse-lite/1.0.30001443:
+    resolution: {integrity: sha512-jUo8svymO8+Mkj3qbUbVjR8zv8LUGpGkUM/jKvc9SO2BvjCI980dp9fQbf/dyLs6RascPzgR4nhAKFA4OHeSaA==}
     dev: true
 
   /chalk/2.4.2:
@@ -1505,10 +1505,10 @@ packages:
       stack-trace: 0.0.10
     dev: true
 
-  github.com/naturecodevoid/wrangler2/d70169a0768639c3043dec4c9def02648ec14a81:
-    resolution: {tarball: https://codeload.github.com/naturecodevoid/wrangler2/tar.gz/d70169a0768639c3043dec4c9def02648ec14a81}
+  github.com/naturecodevoid/wrangler2-esbuild-plugins/752932b004776164f4d20ec9c760ae185643d00f:
+    resolution: {tarball: https://codeload.github.com/naturecodevoid/wrangler2-esbuild-plugins/tar.gz/752932b004776164f4d20ec9c760ae185643d00f}
     name: wrangler
-    version: 2.6.2-esbuild-plugins
+    version: 2.7.1-esbuild-plugins
     engines: {node: '>=16.13.0'}
     hasBin: true
     dependencies:
