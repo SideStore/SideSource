@@ -51,18 +51,6 @@
         }
     ],
 
-    "news[0].title": "This is an override! (beta)",
-
     "apps[0].bundleIdentifier": "test",
-    "apps[0].versions[0].localizedDescription": "This is a beta changelog provided by an override.",
-    "apps[0].localizedDescription": "(override example) SideStore is an alternative app store for non-jailbroken devices.\n\nSideStore allows you to sideload other .ipa files and apps from the Files app or via the SideStore Library.",
-    "apps[0].iconURL": "https://apps.sidestore.io/apps/sidestore/v0.1.1/icon.png",
-    "apps[0].screenshotURLs": [
-        "https://apps.sidestore.io/apps/sidestore/v0.1.1/browse-dark.png",
-        "https://apps.sidestore.io/apps/sidestore/v0.1.1/apps-dark.png",
-        "https://apps.sidestore.io/apps/sidestore/v0.1.1/news-dark.png",
-        "https://apps.sidestore.io/apps/sidestore/v0.1.1/browse-light.png",
-        "https://apps.sidestore.io/apps/sidestore/v0.1.1/apps-light.png",
-        "https://apps.sidestore.io/apps/sidestore/v0.1.1/news-light.png"
-    ]
+    "apps[0].versions[0].localizedDescription": "This is a beta changelog provided by an override."
 }
