@@ -2,9 +2,9 @@ import { RouterType } from "itty-router";
 
 import invalidKey from "../lib/invalidKey";
 
-const stable = ["", "/", "/stable"];
-const beta = ["/beta"];
-const nightly = ["/nightly"];
+const stable = ["", "/", "/stable", "/stable/"];
+const beta = ["/beta", "/beta/"];
+const nightly = ["/nightly", "/nightly/"];
 
 export default function (router: RouterType) {
     router.all("/reset-cache/:channel/:key", async (req, env, ctx: ExecutionContext) => {
@@ -15,12 +15,10 @@ export default function (router: RouterType) {
         if (!req.params["channel"] || req.params["channel"].length < 1 || !["all", "stable", "beta", "nightly"].includes(req.params["channel"]))
             return new Response("invalid channel found", { status: 500 });
 
-        const channel = req.params["channel"];
-
         const routes: string[] = [];
-        if (channel == "all" || channel == "stable") routes.push(...stable);
-        if (channel == "all" || channel == "beta") routes.push(...beta);
-        if (channel == "all" || channel == "nightly") routes.push(...nightly);
+        if (["all", "stable"].includes(req.params["channel"])) routes.push(...stable);
+        if (["all", "beta"].includes(req.params["channel"])) routes.push(...beta);
+        if (["all", "nightly"].includes(req.params["channel"])) routes.push(...nightly);
 
         // if needed, we can use router.routes to find all registered routes instead of manually specifying them
         for (const route of routes) {
