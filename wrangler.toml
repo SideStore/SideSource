@@ -1,4 +1,4 @@
-name = "sidestore-source"
+name = "sidesource"
 main = "src/index.ts"
 compatibility_date = "2023-01-08"
 esbuild_plugins = ["./esbuild-plugins.js"]

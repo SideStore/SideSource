@@ -1,5 +1,5 @@
 {
-    "name": "sidestore-source",
+    "name": "sidesource",
     "type": "module",
     "version": "0.0.0",
     "dependencies": {

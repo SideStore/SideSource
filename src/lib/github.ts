@@ -4,7 +4,7 @@ import { Endpoints } from "@octokit/types";
 import deepForEach from "./deepForEach";
 
 const sideStoreRepo = "naturecodevoid/SideStore";
-const workerRepo = "naturecodevoid/SideStore-source"; // Used for overrides
+const workerRepo = "naturecodevoid/SideSource"; // Used for overrides
 const maxCommitMessageLength = 50; // This controls what the commit message will be trimmed to when making nightly changelogs
 const prefix = "Welcome to the next generation of sideloading! This update fixes and adds the following:"; // Stable auto-generated changelog prefix
 
