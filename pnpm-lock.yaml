@@ -10,7 +10,7 @@ specifiers:
   itty-router: ^3.0.11
   lodash: ^4.17.21
   prettier: ^2.8.2
-  sidestore-source-types: github:naturecodevoid/sidestore-source-types
+  sidestore-source-types: github:SideStore/sidestore-source-types
   typescript: ^4.9.4
   wrangler: github:naturecodevoid/wrangler2-esbuild-plugins#wrangler-build
 
@@ -18,7 +18,7 @@ dependencies:
   '@types/lodash': 4.14.191
   itty-router: 3.0.11
   lodash: 4.17.21
-  sidestore-source-types: github.com/naturecodevoid/sidestore-source-types/b7c69613eb1cde30ea1fd9f04d80fa3911cbc4e7
+  sidestore-source-types: github.com/SideStore/sidestore-source-types/78be98846aa891e30f5b5faa4501a808fdc5b6ba
 
 devDependencies:
   '@cloudflare/workers-types': 4.20221111.1
@@ -1507,8 +1507,8 @@ packages:
       stack-trace: 0.0.10
     dev: true
 
-  github.com/naturecodevoid/sidestore-source-types/b7c69613eb1cde30ea1fd9f04d80fa3911cbc4e7:
-    resolution: {tarball: https://codeload.github.com/naturecodevoid/sidestore-source-types/tar.gz/b7c69613eb1cde30ea1fd9f04d80fa3911cbc4e7}
+  github.com/SideStore/sidestore-source-types/78be98846aa891e30f5b5faa4501a808fdc5b6ba:
+    resolution: {tarball: https://codeload.github.com/SideStore/sidestore-source-types/tar.gz/78be98846aa891e30f5b5faa4501a808fdc5b6ba}
     name: sidestore-source-types
     version: 1.0.0
     dev: false
