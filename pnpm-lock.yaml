@@ -10,6 +10,7 @@ specifiers:
   itty-router: ^3.0.11
   lodash: ^4.17.21
   prettier: ^2.8.2
+  sidestore-source-types: github:naturecodevoid/sidestore-source-types
   typescript: ^4.9.4
   wrangler: github:naturecodevoid/wrangler2-esbuild-plugins#wrangler-build
 
@@ -17,6 +18,7 @@ dependencies:
   '@types/lodash': 4.14.191
   itty-router: 3.0.11
   lodash: 4.17.21
+  sidestore-source-types: github.com/naturecodevoid/sidestore-source-types/b7c69613eb1cde30ea1fd9f04d80fa3911cbc4e7
 
 devDependencies:
   '@cloudflare/workers-types': 4.20221111.1
@@ -1504,6 +1506,12 @@ packages:
       mustache: 4.2.0
       stack-trace: 0.0.10
     dev: true
+
+  github.com/naturecodevoid/sidestore-source-types/b7c69613eb1cde30ea1fd9f04d80fa3911cbc4e7:
+    resolution: {tarball: https://codeload.github.com/naturecodevoid/sidestore-source-types/tar.gz/b7c69613eb1cde30ea1fd9f04d80fa3911cbc4e7}
+    name: sidestore-source-types
+    version: 1.0.0
+    dev: false
 
   github.com/naturecodevoid/wrangler2-esbuild-plugins/752932b004776164f4d20ec9c760ae185643d00f:
     resolution: {tarball: https://codeload.github.com/naturecodevoid/wrangler2-esbuild-plugins/tar.gz/752932b004776164f4d20ec9c760ae185643d00f}

@@ -1,7 +1,7 @@
 import { RouteHandler } from "itty-router";
 import set from "lodash/set";
+import type { Source } from "sidestore-source-types";
 
-import { Source } from "../types/source";
 import { type Channel, parseReleaseData, getChannelData } from "./github";
 import invalidKey from "./invalidKey";
 

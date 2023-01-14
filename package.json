@@ -5,7 +5,8 @@
     "dependencies": {
         "@types/lodash": "^4.14.191",
         "itty-router": "^3.0.11",
-        "lodash": "^4.17.21"
+        "lodash": "^4.17.21",
+        "sidestore-source-types": "github:naturecodevoid/sidestore-source-types"
     },
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20221111.1",
@@ -19,7 +20,7 @@
     },
     "private": true,
     "scripts": {
-        "dev": "wrangler dev",
+        "dev": "wrangler dev --local",
         "deploy": "wrangler publish",
         "deploy-staging": "wrangler publish --env staging",
         "format": "prettier --plugin @trivago/prettier-plugin-sort-imports --config ~/.prettierrc.json ./src ./overrides --write"
