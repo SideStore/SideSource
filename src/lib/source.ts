@@ -9,7 +9,6 @@ function makeDefaultSource(overrides: Record<string, any>, parsed: Awaited<Retur
     const source: Source = {
         name: "SideStore",
         identifier: "com.SideStore.SideStore",
-        //sourceURL: "https://apps.sidestore.io",
         apps: [
             {
                 name: "SideStore",

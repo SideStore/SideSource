@@ -3,8 +3,8 @@ import { Endpoints } from "@octokit/types";
 
 import deepForEach from "./deepForEach";
 
-const sideStoreRepo = "naturecodevoid/SideStore";
-const workerRepo = "naturecodevoid/SideSource"; // Used for overrides
+const sideStoreRepo = "SideStore/SideStore";
+const workerRepo = "SideStore/SideSource"; // Used for overrides
 const maxCommitMessageLength = 50; // This controls what the commit message will be trimmed to when making nightly changelogs
 const prefix = "Welcome to the next generation of sideloading! This update fixes and adds the following:"; // Stable auto-generated changelog prefix
 
@@ -12,7 +12,7 @@ export type Channel = "stable" | "beta" | "nightly";
 export type ReleaseData = Endpoints["GET /repos/{owner}/{repo}/releases/tags/{tag}"]["response"]["data"];
 
 const fetchApi = async (endpoint: string, prefix = "https://api.github.com", extraParams = {}) => {
-    const data = await fetch(prefix + endpoint, { headers: { "User-Agent": "https://github.com/naturecodevoid/SideStore-source" }, ...extraParams });
+    const data = await fetch(prefix + endpoint, { headers: { "User-Agent": `https://github.com/${workerRepo}` }, ...extraParams });
     if (!prefix) {
         // Fix \n's in JSON breaking everything
         const json = JSON.parse((await data.text()).replaceAll("\\n", "\\\\n"));
