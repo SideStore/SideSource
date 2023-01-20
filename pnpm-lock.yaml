@@ -10,7 +10,7 @@ specifiers:
   itty-router: ^3.0.11
   lodash: ^4.17.21
   prettier: ^2.8.2
-  sidestore-source-types: github:SideStore/sidestore-source-types
+  sidestore-source-types: ^1.0.1
   typescript: ^4.9.4
   wrangler: github:naturecodevoid/wrangler2-esbuild-plugins#wrangler-build
 
@@ -18,7 +18,7 @@ dependencies:
   '@types/lodash': 4.14.191
   itty-router: 3.0.11
   lodash: 4.17.21
-  sidestore-source-types: github.com/SideStore/sidestore-source-types/78be98846aa891e30f5b5faa4501a808fdc5b6ba
+  sidestore-source-types: 1.0.1
 
 devDependencies:
   '@cloudflare/workers-types': 4.20221111.1
@@ -28,7 +28,7 @@ devDependencies:
   esbuild-plugin-glob-import: 0.2.0
   prettier: 2.8.2
   typescript: 4.9.4
-  wrangler: github.com/naturecodevoid/wrangler2-esbuild-plugins/752932b004776164f4d20ec9c760ae185643d00f
+  wrangler: github.com/naturecodevoid/wrangler2-esbuild-plugins/17070a6216597d0a58b71ce0f3e530aabb8bba73
 
 packages:
 
@@ -1368,6 +1368,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /sidestore-source-types/1.0.1:
+    resolution: {integrity: sha512-8PqZnrE5oPoG1JSrm42+Q2mBm0jfjX5ftD+WBL9UrKEE61WXnyGf7Lf4/LwQI7oyy27IG6o90GIVh62Uw6jA1g==}
+    dev: false
+
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
     dev: true
@@ -1507,14 +1511,8 @@ packages:
       stack-trace: 0.0.10
     dev: true
 
-  github.com/SideStore/sidestore-source-types/78be98846aa891e30f5b5faa4501a808fdc5b6ba:
-    resolution: {tarball: https://codeload.github.com/SideStore/sidestore-source-types/tar.gz/78be98846aa891e30f5b5faa4501a808fdc5b6ba}
-    name: sidestore-source-types
-    version: 1.0.0
-    dev: false
-
-  github.com/naturecodevoid/wrangler2-esbuild-plugins/752932b004776164f4d20ec9c760ae185643d00f:
-    resolution: {tarball: https://codeload.github.com/naturecodevoid/wrangler2-esbuild-plugins/tar.gz/752932b004776164f4d20ec9c760ae185643d00f}
+  github.com/naturecodevoid/wrangler2-esbuild-plugins/17070a6216597d0a58b71ce0f3e530aabb8bba73:
+    resolution: {tarball: https://codeload.github.com/naturecodevoid/wrangler2-esbuild-plugins/tar.gz/17070a6216597d0a58b71ce0f3e530aabb8bba73}
     name: wrangler
     version: 2.7.1-esbuild-plugins
     engines: {node: '>=16.13.0'}

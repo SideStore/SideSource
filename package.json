@@ -6,7 +6,7 @@
         "@types/lodash": "^4.14.191",
         "itty-router": "^3.0.11",
         "lodash": "^4.17.21",
-        "sidestore-source-types": "github:SideStore/sidestore-source-types"
+        "sidestore-source-types": "^1.0.1"
     },
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20221111.1",
