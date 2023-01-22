@@ -18,7 +18,7 @@ export async function resolveRemoteConfig(url: string, name = "config") {
         const repo = repoMatches[0];
         const file = url.replace(repo + "/", "").split("?")[0]!;
         const branch = url.split("?")[1] || undefined;
-        info(`Getting remote ${name} from GitHub repo \`${repo}\` and file path \`${file}\`${branch ? ` and branch \`${branch}\`` : ""}`);
+        info(`    from GitHub repo \`${repo}\` and file path \`${file}\`${branch ? ` and branch \`${branch}\`` : ""}`);
 
         const text = await getFileContents(repo, file, branch);
         try {

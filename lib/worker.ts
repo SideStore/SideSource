@@ -15,8 +15,8 @@ export function makeSourceHandler(config: Config, functions: Functions = {}) {
             let shouldCache = true;
 
             if ("KEY" in env) {
-                if (req.url.includes(`preview/${env.KEY}`)) shouldCache = false;
-                if (req.url.includes(`reset-cache/${env.KEY}`)) return this.resetCache(["", "/"])(req, env, ctx);
+                if (req.url.includes("preview") && req.url.includes(env.KEY)) shouldCache = false;
+                if (req.url.includes("reset-cache") && req.url.includes(env.KEY)) return this.resetCache(["", "/"])(req, env, ctx);
             } else error(keyNotSet);
 
             if (shouldCache) {
