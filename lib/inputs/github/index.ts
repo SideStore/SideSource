@@ -3,6 +3,7 @@ import get from "lodash/get";
 import { App } from "sidestore-source-types";
 
 import { invalidLambdaReturn, invalidPropertyPath, invalidPropertyPathResult, functionNotFound, noAsset } from "#/errors";
+import { copyToLegacyProperties } from "#/legacyProperties";
 import { info } from "#/logging";
 import { GitHubInput } from "#/struct/typedoc";
 import { Mandatory, merge, Functions } from "#/util";
@@ -58,12 +59,7 @@ export async function makeAppFromGitHubInput({ repo, tag, allowPrereleases, asse
         ],
     });
 
-    // Copy version data to legacy properties
-    app.version = app.versions[0]!.version;
-    app.versionDate = app.versions[0]!.date;
-    app.versionDescription = app.versions[0]!.localizedDescription;
-    app.downloadURL = app.versions[0]!.downloadURL;
-    app.size = app.versions[0]!.size;
+    copyToLegacyProperties(app);
 
     return app;
 }

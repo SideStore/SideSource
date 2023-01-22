@@ -23,6 +23,7 @@ import { isApp, isConfig, isCustomInput, isGitHubInput, isNews, isRawInput, isSo
 
 import { makeAppFromGitHubInput } from "./inputs/github";
 import { makeAppFromSourceInput } from "./inputs/source";
+import { copyToLegacyProperties } from "./legacyProperties";
 
 export async function makeSource(config: Config, functions: Functions = {}) {
     config = configDefaults(config);
@@ -132,6 +133,7 @@ Security:
                     sendArguments();
 
                     if (!isApp(input.app)) throw invalidAppsOrNewsFromRawInput();
+                    copyToLegacyProperties(input.app);
                     source.apps.push(input.app);
 
                     if ("news" in input) {
@@ -151,7 +153,10 @@ Security:
                     const result = await functions[name]!();
                     if (!result || typeof result != "object" || !("apps" in result)) throw invalidCustomFunctionReturn(name, result);
 
-                    for (const app of result.apps) if (!isApp(app)) throw invalidAppsOrNewsFromCustomFunction(name, result);
+                    for (const app of result.apps) {
+                        if (!isApp(app)) throw invalidAppsOrNewsFromCustomFunction(name, result);
+                        copyToLegacyProperties(app);
+                    }
                     source.apps.push(...result.apps);
 
                     if ("news" in result) {
