@@ -25,6 +25,9 @@ import { makeAppFromGitHubInput } from "./inputs/github";
 import { makeAppFromSourceInput } from "./inputs/source";
 import { copyToLegacyProperties } from "./legacyProperties";
 
+/**
+ * Returns an object with the produced source and the new config, after applying defaults and resolving remote configs.
+ */
 export async function makeSource(config: Config, functions: Functions = {}) {
     config = configDefaults(config);
 
@@ -190,9 +193,5 @@ Security:
 
     if (!isSource(source)) error(chalk.yellowBright`WARNING: The source does not seem to be valid! SideStore/AltStore users may experience issues with it.`);
 
-    return source;
+    return { source, newConfig: config };
 }
-
-makeSource({
-    configURL: "https://github.com/SideStore/SideSource/raw/wip/example/config/stable.json",
-}).then(console.log);

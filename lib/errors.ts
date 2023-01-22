@@ -49,3 +49,4 @@ export const noReleasesFound = "No releases found when searching for latest rele
 export const typeNotInInput = `Type was not found in input, skipping`;
 export const invalidInput = "Invalid input. Make sure you have all the required properties and that they are the correct types";
 export const unknownType = `Unknown type. Make sure you have set the \`${chalk.red("type")}\` property to the correct type for the input you are using`;
+export const keyNotSet = chalk.yellowBright`WARNING: There is no \`KEY\` secret set! Reset cache and preview functions will not work. Please see TODO for more info`;

@@ -14,6 +14,7 @@ export async function getLatestRelease(repo: string, includePrereleases: boolean
     if (!includePrereleases) return apiReq<components["schemas"]["release"]>(`/repos/${repo}/releases/latest`, "tag_name");
 
     const releases = await apiReq<components["schemas"]["release"][]>(`/repos/${repo}/releases`, null);
+    if (!Array.isArray(releases)) throw githubApiError(releases);
     if (releases.length < 1) throw noReleasesFound;
 
     for (const release of releases.sort((a, b) => {
