@@ -1,6 +1,6 @@
 {
     "$schema": "https://github.com/SideStore/SideSource/raw/wip/dist/schema.json",
-    "baseConfigURL": "https://github.com/SideStore/SideSource/raw/wip/example/config/stable.json",
+    "baseConfigURL": "github:SideStore/SideSource/example/config/stable.json?wip",
     "source": {
         "name": "SideStore (Beta)",
         "identifier": "com.SideStore.SideStore.Beta"
