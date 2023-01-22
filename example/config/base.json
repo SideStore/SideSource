@@ -1,0 +1,8 @@
+{
+    "$schema": "https://github.com/SideStore/SideSource/raw/wip/dist/schema.json",
+    "source": {
+        "name": "test",
+        "identifier": "test"
+    },
+    "inputs": []
+}
