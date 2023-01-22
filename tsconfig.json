@@ -1,7 +1,12 @@
 {
     "include": ["lib/"],
     "compilerOptions": {
-        "plugins": [{ "transform": "typia/lib/transform" }, { "transform": "typescript-transform-paths" }, { "transform": "typescript-transform-paths", "afterDeclarations": true }],
+        "plugins": [
+            { "transform": "typia/lib/transform" },
+            { "transform": "typescript-transform-paths" },
+            { "transform": "typescript-transform-paths", "afterDeclarations": true },
+            { "transform": "./transformer.cjs" }
+        ],
         /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
         /* Projects */
