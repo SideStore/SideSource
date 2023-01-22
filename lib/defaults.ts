@@ -1,12 +1,15 @@
-import defaults from "lodash/defaults";
-
 import { Config, GitHubInput, SourceInput } from "#/struct/typedoc";
 
+import { merge } from "./util";
+
 export function configDefaults(config: Config) {
-    config = defaults(config, {
-        remoteConfig: true,
-        cacheTime: 240,
-    } as Partial<Config>);
+    config = merge<Config>(
+        {
+            remoteConfig: true,
+            cacheTime: 240,
+        } as Partial<Config>,
+        config,
+    );
 
     if (config.remoteConfig && !config.configURL) throw "`remoteConfig` requires a `configURL` to be specified";
 
@@ -14,20 +17,26 @@ export function configDefaults(config: Config) {
 }
 
 export function githubInputDefaults(input: GitHubInput) {
-    return defaults(input, {
-        allowPrereleases: false,
-        assetRegex: "(.*).ipa",
-        dateLambda: "function:ipaAssetUpdatedAtToSourceDate",
-        versionLambda: "release.tag_name",
-        changelogLambda: "release.body",
-    } as Partial<GitHubInput>);
+    return merge<GitHubInput>(
+        {
+            allowPrereleases: false,
+            assetRegex: "(.*).ipa",
+            dateLambda: "function:ipaAssetUpdatedAtToSourceDate",
+            versionLambda: "release.tag_name",
+            changelogLambda: "release.body",
+        } as Partial<GitHubInput>,
+        input,
+    );
 }
 
 export function sourceInputDefaults(input: SourceInput) {
-    return defaults(input, {
-        allApps: false,
-        allNews: false,
-        appBundleIds: [],
-        newsIds: [],
-    } as Partial<SourceInput>);
+    return merge<SourceInput>(
+        {
+            allApps: false,
+            allNews: false,
+            appBundleIds: [],
+            newsIds: [],
+        } as Partial<SourceInput>,
+        input,
+    );
 }

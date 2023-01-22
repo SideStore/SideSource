@@ -1,5 +1,5 @@
-import { Functions } from "#/util";
 import { Config } from "#/struct/typedoc";
+import { Functions } from "#/util";
 
 import { makeSource } from ".";
 

@@ -19,7 +19,7 @@ import { error, info } from "#/logging";
 import { resolveRemoteConfig } from "#/remoteConfig";
 import { Config, GitHubInput, SourceInput } from "#/struct/typedoc";
 import { flattenKeys, pretty, Mandatory, merge, Functions } from "#/util";
-import { isApp, isConfig, isCustomInput, isGitHubInput, isNews, isRawInput, isSourceInput } from "#/util/is";
+import { isApp, isConfig, isCustomInput, isGitHubInput, isNews, isRawInput, isSource, isSourceInput } from "#/util/is";
 
 import { makeAppFromGitHubInput } from "./inputs/github";
 import { makeAppFromSourceInput } from "./inputs/source";
@@ -182,6 +182,8 @@ Security:
         }
         info("Done applying overrides");
     }
+
+    if (!isSource(source)) error(chalk.yellowBright`WARNING: The source does not seem to be valid! SideStore/AltStore users may experience issues with it.`);
 
     return source;
 }
