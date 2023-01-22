@@ -1,0 +1,17 @@
+{
+    "$schema": "https://github.com/SideStore/SideSource/raw/wip/dist/schema.json",
+    "baseConfigURL": "https://github.com/SideStore/SideSource/raw/wip/example/config/base.json",
+    "source": {
+        "name": "SideStore (Beta)",
+        "identifier": "com.SideStore.SideStore.Beta"
+    },
+    "inputs": [
+        {
+            "tag": "beta",
+            "appMetadata": {
+                "name": "SideStore (Beta)",
+                "localizedDescription": "SideStore Beta builds are hand-picked builds from development commits that will allow you to try out new features earlier than normal, but with a lower chance of bugs than if you used nightly builds. However, since these changes are newer and less tested, they still have a good chance of bugs, so use at your own risk."
+            }
+        }
+    ]
+}
