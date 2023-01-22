@@ -42,7 +42,7 @@ export async function makeSource(config: Config, functions: Functions = {}) {
     }
 
     if (!isConfig(config)) throw invalidConfig(config);
-    if (!config.source.name || !config.source.identifier) throw invalidSourceMetadata(config);
+    if (!config.source || !config.source.name || !config.source.identifier) throw invalidSourceMetadata(config);
 
     const source = merge<Source>(config.source, {
         apps: [] as App[],
@@ -135,12 +135,12 @@ Security:
 
                     sendArguments();
 
-                    if (!isApp(input.app)) throw invalidAppsOrNewsFromRawInput();
+                    if (!isApp(input.app)) throw invalidAppsOrNewsFromRawInput;
                     copyToLegacyProperties(input.app);
                     source.apps.push(input.app);
 
                     if ("news" in input) {
-                        for (const news of input.news) if (!isNews(news)) throw invalidAppsOrNewsFromRawInput();
+                        for (const news of input.news) if (!isNews(news)) throw invalidAppsOrNewsFromRawInput;
                         source.news!.push(...input.news);
                     }
                     break;

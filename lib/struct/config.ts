@@ -14,6 +14,9 @@ export interface Config {
      *
      * **If the config is hosted in a public GitHub repository, please use the format `github:{user or org}/{repo name}/{file path}`. If you need to specify a branch, use this format: `github:{user or org}/{repo name}/{file path}?{branch}`. For example, `github:SideStore/SideSource/example/config/stable.json`.** This will allow us to get around the rate limiting of raw files using the GitHub API.
      *
+     * If you are not using a custom domain (aka you are not using caching), **you should not use any `github:` URLs.** `github:` URLs resolve using GitHub's API, which is limited to 60 requests per hour
+     * without an access token, which will be exceeded very quickly without caching. Instead, use the URL that your browser goes to when viewing the "raw" contents of a file.
+     *
      * Required if {@link remoteConfig} is not false. Otherwise, it does nothing.
      */
     configURL?: string | undefined;
@@ -21,6 +24,9 @@ export interface Config {
      * Specifies the URL to base the config on. This is especially helpful when you have multiple release channels and you need a different source for each release channel but want to reduce duplicate configuration.
      *
      * **If the config is hosted in a public GitHub repository, please use the format `github:{user or org}/{repo name}/{file path}`. For example, `github:SideStore/SideSource/example/config/base.json`.** This will allow us to get around the rate limiting of raw files using the GitHub API.
+     *
+     * If you are not using a custom domain (aka you are not using caching), **you should not use any `github:` URLs.** `github:` URLs resolve using GitHub's API, which is limited to 60 requests per hour
+     * without an access token, which will be exceeded very quickly without caching. Instead, use the URL that your browser goes to when viewing the "raw" contents of a file.
      */
     baseConfigURL?: string | undefined;
     /**

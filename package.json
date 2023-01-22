@@ -7,6 +7,20 @@
     "files": [
         "dist/"
     ],
+    "license": "MIT",
+    "author": {
+        "name": "naturecodevoid",
+        "url": "https://naturecodevoid.dev/"
+    },
+    "funding": {
+        "type": "patreon",
+        "url": "https://www.patreon.com/sidestore"
+    },
+    "homepage": "https://sidestore.io/sidesource",
+    "repository": "github:SideStore/SideSource",
+    "bugs": {
+        "url": "https://github.com/SideStore/SideSource/issues"
+    },
     "dependencies": {
         "@types/lodash": "^4.14.191",
         "chalk": "^5.2.0",
@@ -28,7 +42,7 @@
     },
     "scripts": {
         "prepare": "ts-patch install",
-        "build": "rm -r dist/ && tsc && ts-json-schema-generator -p './lib/struct/config.ts' -o dist/schema.json && typedoc lib/struct/typedoc.ts --gitRevision main",
+        "build": "rm -r dist/ && tsc && ts-json-schema-generator -p './lib/struct/config.ts' -o dist/schema.json && typedoc lib/struct/typedoc.ts --searchInComments --gitRevision main",
         "check": "tsc --noEmit",
         "format": "prettier --plugin @trivago/prettier-plugin-sort-imports --config ~/.prettierrc.json ./lib ./example/src ./example/config --write"
     }

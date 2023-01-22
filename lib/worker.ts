@@ -11,12 +11,18 @@ interface Env {
 
 export function makeSourceHandler(config: Config, functions: Functions = {}) {
     return {
-        async fetch(req, env, ctx) {
+        fetch(req: Request, env: Env, ctx: ExecutionContext) {
+            const { pathname } = new URL(req.url);
+            if (pathname == "" || pathname == "/" || pathname.includes("preview") || pathname.includes("reset-cache")) return this.handle(req, env, ctx);
+            return new Response("404 Not Found", { status: 404 });
+        },
+        async handle(req: Request, env, ctx) {
             let shouldCache = true;
 
+            const { pathname } = new URL(req.url);
             if ("KEY" in env) {
-                if (req.url.includes("preview") && req.url.includes(env.KEY)) shouldCache = false;
-                if (req.url.includes("reset-cache") && req.url.includes(env.KEY)) return this.resetCache(["", "/"])(req, env, ctx);
+                if (pathname.includes("preview") && pathname.includes(env.KEY)) shouldCache = false;
+                if (pathname.includes("reset-cache") && pathname.includes(env.KEY)) return this.resetCache([""])(req, env, ctx);
             } else error(keyNotSet);
 
             if (shouldCache) {
@@ -42,32 +48,44 @@ export function makeSourceHandler(config: Config, functions: Functions = {}) {
                 res.headers.set("Cache-Control", `max-age=${newConfig.cacheTime! * 60}`);
                 ctx.waitUntil(caches.default.put(req, res.clone()));
             } else if (!shouldCache) {
-                res.headers.set("X-Using-Preview", "true");
+                res.headers.set("X-Skipping-Cache", "true");
             }
 
             return res;
         },
-        resetCache(routes) {
-            return (req, env, ctx) => {
-                if ("KEY" in env)
-                    if (req.url.includes(env.KEY)) {
+        resetCache(origRoutes) {
+            return (req: Request, env, ctx) => {
+                if ("KEY" in env) {
+                    const url = new URL(req.url);
+                    if (url.pathname.includes(env.KEY)) {
+                        // Clone array so we don't modify the original
+                        const routes = [...origRoutes];
+
+                        // Create duplicate routes with trailing slashes
+                        // Clone it again so we don't make an infinite loop
+                        for (const route of [...routes]) {
+                            const withTrailingSlash = `${route}/`;
+                            if (routes.indexOf(withTrailingSlash) == -1) routes.push(withTrailingSlash);
+                        }
+
                         for (const route of routes) {
-                            const url = new URL(req.url).origin + route;
-                            console.log(`reset cache for url: ${url}`);
-                            ctx.waitUntil(caches.default.delete(url, { ignoreMethod: true }) as any);
+                            const routeUrl = url.origin + route;
+                            console.log(`reset cache for url: ${routeUrl}`);
+                            ctx.waitUntil(caches.default.delete(routeUrl, { ignoreMethod: true }) as any);
                         }
 
                         return new Response(`Success! Reset cache for ${routes.filter((val) => val.length > 0).join(", ")}`);
                     } else return new Response("Wrong key. Make sure to include it in the URL!");
-
+                }
                 error(keyNotSet);
 
-                return new Response(`The \`KEY\` secret is not set. Please see TODO for more info`);
+                return new Response(`The \`KEY\` secret is not set. Please see https://sidestore.io/sidesource/#4-setting-up-a-key-for-preview-and-caching-resetting-functionality for more info`);
             };
         },
     } as {
         // Using request will cause type errors with itty-router, so we need to change it to any
-        fetch: (req: any, env: Env, ctx: ExecutionContext) => Promise<Response>;
+        handle: (req: any, env: Env, ctx: ExecutionContext) => Promise<Response>;
         resetCache: (routes: string[]) => (req: any, env: Env, ctx: ExecutionContext) => Response;
+        // NOTE: we don't expose fetch because it should only be used when SideSource handles the entire worker. We don't want people using itty-router to use it
     };
 }

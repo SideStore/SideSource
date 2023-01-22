@@ -1,5 +1,6 @@
 import { RouterType } from "itty-router";
 import { makeSourceHandler } from "sidesource";
+
 import functions from "../functions";
 
 export default function (router: RouterType) {
@@ -10,7 +11,7 @@ export default function (router: RouterType) {
         functions,
     );
 
-    router.all("/beta", handler.fetch);
-    router.all("/preview/beta/:key", handler.fetch);
-    router.all("/reset-cache/beta/:key", handler.resetCache(["/beta", "/beta/"]));
+    router.all("/beta", handler.handle);
+    router.all("/preview/beta/:key", handler.handle);
+    router.all("/reset-cache/beta/:key", handler.resetCache(["/beta"]));
 }

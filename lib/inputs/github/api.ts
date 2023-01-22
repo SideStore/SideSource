@@ -1,6 +1,6 @@
 import { components } from "@octokit/openapi-types";
 
-import { githubApiError, noReleasesFound } from "#/errors";
+import { err, githubApiError, noReleasesFound } from "#/errors";
 
 async function apiReq<T>(path: string, verifyPropertyName: string | null) {
     const res = await fetch(`https://api.github.com${path}`, { headers: { "User-Agent": "https://github.com/SideStore/SideSource" } });
@@ -25,7 +25,7 @@ export async function getLatestRelease(repo: string, includePrereleases: boolean
         return release;
     }
 
-    throw "Unknown error; it should be impossible to get here";
+    throw err`Unknown error; it should be impossible to get here`;
 }
 export const getReleaseByTag = (repo: string, tag: string) => apiReq<components["schemas"]["release"]>(`/repos/${repo}/releases/tags/${tag}`, "tag_name");
 

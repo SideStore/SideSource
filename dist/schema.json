@@ -98,7 +98,7 @@
       "additionalProperties": false,
       "properties": {
         "baseConfigURL": {
-          "description": "Specifies the URL to base the config on. This is especially helpful when you have multiple release channels and you need a different source for each release channel but want to reduce duplicate configuration.\n\n**If the config is hosted in a public GitHub repository, please use the format `github:{user or org}/{repo name}/{file path}`. For example, `github:SideStore/SideSource/example/config/base.json`.** This will allow us to get around the rate limiting of raw files using the GitHub API.",
+          "description": "Specifies the URL to base the config on. This is especially helpful when you have multiple release channels and you need a different source for each release channel but want to reduce duplicate configuration.\n\n**If the config is hosted in a public GitHub repository, please use the format `github:{user or org}/{repo name}/{file path}`. For example, `github:SideStore/SideSource/example/config/base.json`.** This will allow us to get around the rate limiting of raw files using the GitHub API.\n\nIf you are not using a custom domain (aka you are not using caching), **you should not use any `github:` URLs.** `github:` URLs resolve using GitHub's API, which is limited to 60 requests per hour without an access token, which will be exceeded very quickly without caching. Instead, use the URL that your browser goes to when viewing the \"raw\" contents of a file.",
           "type": "string"
         },
         "cacheTime": {
@@ -106,7 +106,7 @@
           "type": "number"
         },
         "configURL": {
-          "description": "Specifies the URL to fetch the config as JSON. This allows for updating the config without having to re-deploy the cloudflare worker.\n\n**If the config is hosted in a public GitHub repository, please use the format `github:{user or org}/{repo name}/{file path}`. If you need to specify a branch, use this format: `github:{user or org}/{repo name}/{file path}?{branch}`. For example, `github:SideStore/SideSource/example/config/stable.json`.** This will allow us to get around the rate limiting of raw files using the GitHub API.\n\nRequired if  {@link  remoteConfig }  is not false. Otherwise, it does nothing.",
+          "description": "Specifies the URL to fetch the config as JSON. This allows for updating the config without having to re-deploy the cloudflare worker.\n\n**If the config is hosted in a public GitHub repository, please use the format `github:{user or org}/{repo name}/{file path}`. If you need to specify a branch, use this format: `github:{user or org}/{repo name}/{file path}?{branch}`. For example, `github:SideStore/SideSource/example/config/stable.json`.** This will allow us to get around the rate limiting of raw files using the GitHub API.\n\nIf you are not using a custom domain (aka you are not using caching), **you should not use any `github:` URLs.** `github:` URLs resolve using GitHub's API, which is limited to 60 requests per hour without an access token, which will be exceeded very quickly without caching. Instead, use the URL that your browser goes to when viewing the \"raw\" contents of a file.\n\nRequired if  {@link  remoteConfig }  is not false. Otherwise, it does nothing.",
           "type": "string"
         },
         "inputs": {
@@ -162,7 +162,7 @@
       "description": "An input that allows you to use a function to get apps and optionally news.\n\n** {@link  type }  MUST be `custom`**",
       "properties": {
         "functionName": {
-          "description": "The name of a JavaScript/TypeScript function to use to get the app and news values. **It MUST return an object with an array of [App](https://sidestore.io/sidestore-source-types/interfaces/App.html) objects called `apps` and optionally an array of [News](https://sidestore.io/sidestore-source-types/interfaces/News.html) objects called `news`.**\n\nUnlike the lambda properties in  {@link  GitHubInput } , **this property does not need to be prefixed with `function:`.**\n\nSee TODO for more info on built in functions and how you can make your own.",
+          "description": "The name of a JavaScript/TypeScript function to use to get the app and news values. **It MUST return an object with an array of [App](https://sidestore.io/sidestore-source-types/interfaces/App.html) objects called `apps` and optionally an array of [News](https://sidestore.io/sidestore-source-types/interfaces/News.html) objects called `news`.**\n\nUnlike the lambda properties in  {@link  GitHubInput } , **this property does not need to be prefixed with `function:`.**\n\nSee https://sidestore.io/sidesource/#functions for more info on built in functions and how you can make your own.",
           "type": "string"
         },
         "type": {
@@ -240,7 +240,7 @@
           "type": "string"
         },
         "dateLambda": {
-          "description": "Lambdas have a few options for returning the required output: 1. A property path that points to the property that should correspond to the output. Examples:    - `release.body`    - `ipaAsset.name` 2. The name of a JavaScript/TypeScript function prefixed with `function:` provided when creating the handler/source. See TODO for more info on built in functions and how you can make your own.\n\nYou will have access to the `release` variable (see https://docs.github.com/en/rest/releases/releases#get-the-latest-release) and `ipaAsset` variable, which is the asset that was picked using  {@link  assetRegex } .\n\n`dateLambda` is expected to return a string with the date in `YYYY-MM-DD` format.\n\nDefaults to parsing the date from the release asset `updated_at` property. (`function:ipaAssetUpdatedAtToSourceDate`)",
+          "description": "Lambdas have a few options for returning the required output: 1. A property path that points to the property that should correspond to the output. Examples:    - `release.body`    - `ipaAsset.name` 2. The name of a JavaScript/TypeScript function prefixed with `function:` provided when creating the handler/source. See https://sidestore.io/sidesource/#functions for more info on built in functions and how you can make your own.\n\nYou will have access to the `release` variable (see https://docs.github.com/en/rest/releases/releases#get-the-latest-release) and `ipaAsset` variable, which is the asset that was picked using  {@link  assetRegex } .\n\n`dateLambda` is expected to return a string with the date in `YYYY-MM-DD` format.\n\nDefaults to parsing the date from the release asset `updated_at` property. (`function:ipaAssetUpdatedAtToSourceDate`)",
           "type": "string"
         },
         "repo": {

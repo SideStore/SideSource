@@ -1,0 +1,9 @@
+{
+    "navigationLinks": {
+        "GitHub": "https://github.com/SideStore",
+        "NPM": "https://www.npmjs.com/package/sidesource",
+        "Source Types NPM": "https://www.npmjs.com/package/sidestore-source-types",
+        "Wiki": "https://wiki.sidestore.io/",
+        "Website": "https://sidestore.io/"
+    }
+}

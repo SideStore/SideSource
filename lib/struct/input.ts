@@ -33,7 +33,7 @@ export interface GitHubInput {
      * 1. A property path that points to the property that should correspond to the output. Examples:
      *    - `release.body`
      *    - `ipaAsset.name`
-     * 2. The name of a JavaScript/TypeScript function prefixed with `function:` provided when creating the handler/source. See TODO for more info on built in functions and how you can make your own.
+     * 2. The name of a JavaScript/TypeScript function prefixed with `function:` provided when creating the handler/source. See https://sidestore.io/sidesource/#functions for more info on built in functions and how you can make your own.
      *
      * You will have access to the `release` variable (see https://docs.github.com/en/rest/releases/releases#get-the-latest-release) and `ipaAsset` variable, which is the asset that was picked using {@link assetRegex}.
      *
@@ -135,7 +135,7 @@ export interface CustomInput {
      *
      * Unlike the lambda properties in {@link GitHubInput}, **this property does not need to be prefixed with `function:`.**
      *
-     * See TODO for more info on built in functions and how you can make your own.
+     * See https://sidestore.io/sidesource/#functions for more info on built in functions and how you can make your own.
      */
     functionName: string;
 }

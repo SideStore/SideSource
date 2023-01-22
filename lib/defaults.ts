@@ -1,5 +1,6 @@
 import { Config, GitHubInput, SourceInput } from "#/struct/typedoc";
 
+import { err } from "./errors";
 import { merge } from "./util";
 
 export function configDefaults(config: Config) {
@@ -7,11 +8,12 @@ export function configDefaults(config: Config) {
         {
             remoteConfig: true,
             cacheTime: 240,
+            inputs: [],
         } as Partial<Config>,
         config,
     );
 
-    if (config.remoteConfig && !config.configURL) throw "`remoteConfig` requires a `configURL` to be specified";
+    if (config.remoteConfig && !config.configURL) throw err`\`remoteConfig\` requires a \`configURL\` to be specified`;
 
     return config;
 }
