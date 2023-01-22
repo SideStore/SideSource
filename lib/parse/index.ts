@@ -1,24 +1,22 @@
 import { components } from "@octokit/openapi-types";
 import chalk from "chalk";
-import json5 from "json5";
 import set from "lodash/set";
 import { App, Source } from "sidestore-source-types";
 
 import { configDefaults, githubInputDefaults, sourceInputDefaults } from "#/defaults";
 import {
-    failedToParseRemoteConfig,
     functionNotFound,
     invalidAppsOrNewsFromCustomFunction,
     invalidAppsOrNewsFromRawInput,
     invalidConfig,
     invalidCustomFunctionReturn,
-    invalidGitHubConfigURL,
     invalidInput,
     invalidSourceMetadata,
     typeNotInInput,
     unknownType,
 } from "#/errors";
 import { error, info } from "#/logging";
+import { resolveRemoteConfig } from "#/remoteConfig";
 import { Config, GitHubInput, SourceInput } from "#/types";
 import { Functions } from "#/types/functions";
 import { flattenKeys } from "#/util/flattenKeys";
@@ -28,41 +26,20 @@ import { Mandatory } from "#/util/mandatory";
 import { merge } from "#/util/merge";
 
 import { makeAppFromGitHubInput } from "./inputs/github";
-import { getFileContents } from "./inputs/github/api";
 import { makeAppFromSourceInput } from "./inputs/source";
 
 export async function makeSource(config: Config, functions: Functions = {}) {
     config = configDefaults(config);
 
     if (config.remoteConfig) {
-        let url = config.configURL!;
-        info(`Getting remote config from ${url}`);
-        if (url.startsWith("github:")) {
-            url = url.replace("github:", "");
-
-            let repoMatches = url.match(/[^\/]*\/{1}[^\/]*/g);
-            if (!repoMatches) throw invalidGitHubConfigURL(url);
-
-            const repo = repoMatches[0];
-            const file = url.replace(repo + "/", "").split("?")[0]!;
-            const branch = url.split("?")[1] || undefined;
-            info(`Getting remote config from GitHub repo \`${repo}\` and file path \`${file}\`${branch ? ` and branch \`${branch}\`` : ""}`);
-
-            const text = await getFileContents(repo, file, branch);
-            try {
-                config = json5.parse(text);
-            } catch {
-                throw failedToParseRemoteConfig(text);
-            }
-        } else {
-            const text = await (await fetch(url)).text();
-            try {
-                config = json5.parse(text);
-            } catch {
-                throw failedToParseRemoteConfig(text);
-            }
-        }
+        config = await resolveRemoteConfig(config.configURL!);
     } else info("Not using remote config");
+
+    if (config.baseConfigURL) {
+        const baseConfig = await resolveRemoteConfig(config.baseConfigURL, "base config");
+        config = merge<Config>(baseConfig, config);
+        info("Successfully applied base config");
+    }
 
     if (!isConfig(config)) throw invalidConfig(config);
     if (!config.source.name || !config.source.identifier) throw invalidSourceMetadata(config);

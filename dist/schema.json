@@ -155,9 +155,24 @@
           "type": "object"
         }
       },
+      "type": "object"
+    },
+    "CustomInput": {
+      "additionalProperties": false,
+      "description": "An input that allows you to use a function to get apps and optionally news.\n\n** {@link  type }  MUST be `custom`**",
+      "properties": {
+        "functionName": {
+          "description": "The name of a JavaScript/TypeScript function to use to get the app and news values. **It MUST return an object with an array of [App](https://sidestore.io/sidestore-source-types/interfaces/App.html) objects called `apps` and optionally an array of [News](https://sidestore.io/sidestore-source-types/interfaces/News.html) objects called `news`.**\n\nUnlike the lambda properties in  {@link  GitHubInput } , **this property does not need to be prefixed with `function:`.**\n\nSee TODO for more info on built in functions and how you can make your own.",
+          "type": "string"
+        },
+        "type": {
+          "const": "custom",
+          "type": "string"
+        }
+      },
       "required": [
-        "source",
-        "inputs"
+        "type",
+        "functionName"
       ],
       "type": "object"
     },
@@ -225,7 +240,7 @@
           "type": "string"
         },
         "dateLambda": {
-          "description": "Lambdas have a few options for returning the required output: 1. A property path that points to the property that should correspond to the output. Examples:    - `release.body`    - `ipaAsset.name` 2. The name of a JavaScript/TypeScript function prefixed with `function:` provided when creating the handler/source. See TODO for more info.\n\nYou will have access to the `release` variable (see https://docs.github.com/en/rest/releases/releases#get-the-latest-release) and `ipaAsset` variable, which is the asset that was picked using  {@link  assetRegex } .\n\n`dateLambda` is expected to return a string with the date in `YYYY-MM-DD` format.\n\nDefaults to parsing the date from the release asset `updated_at` property. (`function:ipaAssetUpdatedAtToSourceDate`)",
+          "description": "Lambdas have a few options for returning the required output: 1. A property path that points to the property that should correspond to the output. Examples:    - `release.body`    - `ipaAsset.name` 2. The name of a JavaScript/TypeScript function prefixed with `function:` provided when creating the handler/source. See TODO for more info on built in functions and how you can make your own.\n\nYou will have access to the `release` variable (see https://docs.github.com/en/rest/releases/releases#get-the-latest-release) and `ipaAsset` variable, which is the asset that was picked using  {@link  assetRegex } .\n\n`dateLambda` is expected to return a string with the date in `YYYY-MM-DD` format.\n\nDefaults to parsing the date from the release asset `updated_at` property. (`function:ipaAssetUpdatedAtToSourceDate`)",
           "type": "string"
         },
         "repo": {
@@ -263,6 +278,9 @@
         },
         {
           "$ref": "#/definitions/RawInput"
+        },
+        {
+          "$ref": "#/definitions/CustomInput"
         }
       ],
       "description": "This can be one of the input types. The `type` value must be the value that is specified or they may not be parsed correctly."
@@ -358,32 +376,66 @@
       "additionalProperties": false,
       "description": "An input that allows you to manually specify each value.\n\n** {@link  type }  MUST be `raw`**",
       "properties": {
+        "app": {
+          "$ref": "#/definitions/App",
+          "description": "Please see https://sidestore.io/sidestore-source-types/interfaces/App.html for possible values"
+        },
+        "news": {
+          "description": "Please see https://sidestore.io/sidestore-source-types/interfaces/News.html for possible values",
+          "items": {
+            "$ref": "#/definitions/News"
+          },
+          "type": "array"
+        },
         "type": {
           "const": "raw",
           "type": "string"
-        },
-        "values": {
-          "$ref": "#/definitions/App",
-          "description": "Please see https://sidestore.io/sidestore-source-types/interfaces/App.html for possible values"
         }
       },
       "required": [
         "type",
-        "values"
+        "app"
       ],
       "type": "object"
     },
     "SourceInput": {
       "additionalProperties": false,
-      "description": "TODO\n\n** {@link  type }  MUST be `source`**",
+      "description": "An input for cherry picking apps and news from another source.\n\n** {@link  type }  MUST be `source`**",
       "properties": {
+        "allApps": {
+          "description": "If true, all apps in the source will be cherry picked. This will override  {@link  appBundleIds } .\n\nDefaults to false.",
+          "type": "boolean"
+        },
+        "allNews": {
+          "description": "If true, all news in the source will be cherry picked. This will override  {@link  newsIds } .\n\nDefaults to false.",
+          "type": "boolean"
+        },
+        "appBundleIds": {
+          "description": "An array of app bundleIdentifiers to cherry pick.\n\nIf  {@link  allApps }  is true, this option will do nothing.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "newsIds": {
+          "description": "An array of news identifiers to cherry pick.\n\nIf  {@link  allNews }  is true, this option will do nothing.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
         "type": {
           "const": "source",
+          "type": "string"
+        },
+        "url": {
+          "description": "The URL for the source.",
           "type": "string"
         }
       },
       "required": [
-        "type"
+        "type",
+        "url"
       ],
       "type": "object"
     },

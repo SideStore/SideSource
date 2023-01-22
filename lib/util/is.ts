@@ -5,7 +5,7 @@ import { Config, CustomInput, GitHubInput, RawInput, SourceInput } from "#/types
 
 import { Mandatory } from "./mandatory";
 
-export const isConfig = createIs<Config>();
+export const isConfig = createIs<Mandatory<Config>>();
 export const isGitHubInput = createIs<Mandatory<GitHubInput>>();
 export const isSourceInput = createIs<Mandatory<SourceInput>>();
 export const isRawInput = createIs<Mandatory<RawInput>>();
