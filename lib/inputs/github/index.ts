@@ -4,10 +4,8 @@ import { App } from "sidestore-source-types";
 
 import { invalidLambdaReturn, invalidPropertyPath, invalidPropertyPathResult, functionNotFound, noAsset } from "#/errors";
 import { info } from "#/logging";
-import { GitHubInput } from "#/types";
-import { Functions } from "#/types/functions";
-import { Mandatory } from "#/util/mandatory";
-import { merge } from "#/util/merge";
+import { GitHubInput } from "#/struct/typedoc";
+import { Mandatory, merge, Functions } from "#/util";
 
 import { getLatestRelease, getReleaseByTag } from "./api";
 

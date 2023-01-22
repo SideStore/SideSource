@@ -1,6 +1,6 @@
 import chalk from "chalk";
 
-import { pretty } from "./util/json";
+import { pretty } from "./util";
 
 export const invalidGitHubConfigURL = (configURL: string) =>
     `Invalid GitHub configURL. Please make sure it is in the form \`${chalk.red("github:{user or org}/{repo name}/{file path}")}\`. If you need to specify a branch, use this format: \`${chalk.red(

@@ -2,8 +2,8 @@ import json5 from "json5";
 
 import { invalidGitHubConfigURL, failedToParseRemoteConfig } from "./errors";
 import { info } from "./logging";
-import { getFileContents } from "./parse/inputs/github/api";
-import { Config } from "./types";
+import { getFileContents } from "./inputs/github/api";
+import { Config } from "./struct/typedoc";
 
 export async function resolveRemoteConfig(url: string, name = "config") {
     let config: Config;

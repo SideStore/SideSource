@@ -1,6 +1,6 @@
 import defaults from "lodash/defaults";
 
-import { Config, GitHubInput, SourceInput } from "#/types";
+import { Config, GitHubInput, SourceInput } from "#/struct/typedoc";
 
 export function configDefaults(config: Config) {
     config = defaults(config, {

@@ -1,9 +1,9 @@
 import { App, News } from "sidestore-source-types";
 import { createIs } from "typia";
 
-import { Config, CustomInput, GitHubInput, RawInput, SourceInput } from "#/types";
+import { Config, CustomInput, GitHubInput, RawInput, SourceInput } from "#/struct/typedoc";
 
-import { Mandatory } from "./mandatory";
+import { Mandatory } from ".";
 
 export const isConfig = createIs<Mandatory<Config>>();
 export const isGitHubInput = createIs<Mandatory<GitHubInput>>();

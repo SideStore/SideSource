@@ -1,7 +1,7 @@
-import { Config } from "#/types";
-import { Functions } from "#/types/functions";
+import { Functions } from "#/util";
+import { Config } from "#/struct/typedoc";
 
-import { makeSource } from "..";
+import { makeSource } from ".";
 
 interface Env {
     KEY: string;

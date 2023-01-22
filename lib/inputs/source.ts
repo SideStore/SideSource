@@ -2,8 +2,8 @@ import json5 from "json5";
 import { App, News, Source } from "sidestore-source-types";
 
 import { failedToParseSource } from "#/errors";
-import { SourceInput } from "#/types";
-import { Mandatory } from "#/util/mandatory";
+import { SourceInput } from "#/struct/typedoc";
+import { Mandatory } from "#/util";
 
 export async function makeAppFromSourceInput({ url, allApps, allNews, appBundleIds, newsIds }: Mandatory<SourceInput>) {
     const text = await (await fetch(url)).text();
@@ -23,11 +23,11 @@ export async function makeAppFromSourceInput({ url, allApps, allNews, appBundleI
     for (const app of apps) {
         if (!app.versions || app.versions.length < 1) continue;
         // Copy version data to legacy properties
-        app.version = app.versions[0]!.version;
-        app.versionDate = app.versions[0]!.date;
-        app.versionDescription = app.versions[0]!.localizedDescription;
-        app.downloadURL = app.versions[0]!.downloadURL;
-        app.size = app.versions[0]!.size;
+        if (!app.version) app.version = app.versions[0]!.version;
+        if (!app.versionDate) app.versionDate = app.versions[0]!.date;
+        if (!app.versionDescription) app.versionDescription = app.versions[0]!.localizedDescription;
+        if (!app.downloadURL) app.downloadURL = app.versions[0]!.downloadURL;
+        if (!app.size) app.size = app.versions[0]!.size;
     }
 
     return { apps, news };

@@ -17,13 +17,9 @@ import {
 } from "#/errors";
 import { error, info } from "#/logging";
 import { resolveRemoteConfig } from "#/remoteConfig";
-import { Config, GitHubInput, SourceInput } from "#/types";
-import { Functions } from "#/types/functions";
-import { flattenKeys } from "#/util/flattenKeys";
+import { Config, GitHubInput, SourceInput } from "#/struct/typedoc";
+import { flattenKeys, pretty, Mandatory, merge, Functions } from "#/util";
 import { isApp, isConfig, isCustomInput, isGitHubInput, isNews, isRawInput, isSourceInput } from "#/util/is";
-import { pretty } from "#/util/json";
-import { Mandatory } from "#/util/mandatory";
-import { merge } from "#/util/merge";
 
 import { makeAppFromGitHubInput } from "./inputs/github";
 import { makeAppFromSourceInput } from "./inputs/source";
@@ -189,3 +185,7 @@ Security:
 
     return source;
 }
+
+makeSource({
+    configURL: "https://github.com/SideStore/SideSource/raw/wip/example/config/stable.json",
+}).then(console.log);
