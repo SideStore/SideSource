@@ -79,7 +79,7 @@ export function makeSourceHandler(config: Config, functions: Functions = {}) {
                 }
                 error(keyNotSet);
 
-                return new Response(`The \`KEY\` secret is not set. Please see https://sidestore.io/sidesource/#4-setting-up-a-key-for-preview-and-caching-resetting-functionality for more info`);
+                return new Response(`The \`KEY\` secret is not set. Please see https://sidestore.io/SideSource/#4-setting-up-a-key-for-preview-and-caching-resetting-functionality for more info`);
             };
         },
     } as {

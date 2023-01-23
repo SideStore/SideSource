@@ -65,4 +65,4 @@ export const noReleasesFound = err`No releases found when searching for latest r
 export const typeNotInInput = err`Type was not found in input, skipping`;
 export const invalidInput = err`Invalid input. Make sure you have all the required properties and that they are the correct types`;
 export const unknownType = err`Unknown type. Make sure you have set the \`${chalk.red("type")}\` property to the correct type for the input you are using`;
-export const keyNotSet = chalk.yellowBright`WARNING: There is no \`KEY\` secret set! Reset cache and preview functions will not work. Please see https://sidestore.io/sidesource/#4-setting-up-a-key-for-preview-and-caching-resetting-functionality for more info`;
+export const keyNotSet = chalk.yellowBright`WARNING: There is no \`KEY\` secret set! Reset cache and preview functions will not work. Please see https://sidestore.io/SideSource/#4-setting-up-a-key-for-preview-and-caching-resetting-functionality for more info`;

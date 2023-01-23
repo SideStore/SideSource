@@ -162,7 +162,7 @@
       "description": "An input that allows you to use a function to get apps and optionally news.\n\n** {@link  type }  MUST be `custom`**",
       "properties": {
         "functionName": {
-          "description": "The name of a JavaScript/TypeScript function to use to get the app and news values. **It MUST return an object with an array of [App](https://sidestore.io/sidestore-source-types/interfaces/App.html) objects called `apps` and optionally an array of [News](https://sidestore.io/sidestore-source-types/interfaces/News.html) objects called `news`.**\n\nUnlike the lambda properties in  {@link  GitHubInput } , **this property does not need to be prefixed with `function:`.**\n\nSee https://sidestore.io/sidesource/#functions for more info on built in functions and how you can make your own.",
+          "description": "The name of a JavaScript/TypeScript function to use to get the app and news values. **It MUST return an object with an array of [App](https://sidestore.io/sidestore-source-types/interfaces/App.html) objects called `apps` and optionally an array of [News](https://sidestore.io/sidestore-source-types/interfaces/News.html) objects called `news`.**\n\nUnlike the lambda properties in  {@link  GitHubInput } , **this property does not need to be prefixed with `function:`.**\n\nSee https://sidestore.io/SideSource/#functions for more info on built in functions and how you can make your own.",
           "type": "string"
         },
         "type": {
@@ -240,7 +240,7 @@
           "type": "string"
         },
         "dateLambda": {
-          "description": "Lambdas have a few options for returning the required output: 1. A property path that points to the property that should correspond to the output. Examples:    - `release.body`    - `ipaAsset.name` 2. The name of a JavaScript/TypeScript function prefixed with `function:` provided when creating the handler/source. See https://sidestore.io/sidesource/#functions for more info on built in functions and how you can make your own.\n\nYou will have access to the `release` variable (see https://docs.github.com/en/rest/releases/releases#get-the-latest-release) and `ipaAsset` variable, which is the asset that was picked using  {@link  assetRegex } .\n\n`dateLambda` is expected to return a string with the date in `YYYY-MM-DD` format.\n\nDefaults to parsing the date from the release asset `updated_at` property. (`function:ipaAssetUpdatedAtToSourceDate`)",
+          "description": "Lambdas have a few options for returning the required output: 1. A property path that points to the property that should correspond to the output. Examples:    - `release.body`    - `ipaAsset.name` 2. The name of a JavaScript/TypeScript function prefixed with `function:` provided when creating the handler/source. See https://sidestore.io/SideSource/#functions for more info on built in functions and how you can make your own.\n\nYou will have access to the `release` variable (see https://docs.github.com/en/rest/releases/releases#get-the-latest-release) and `ipaAsset` variable, which is the asset that was picked using  {@link  assetRegex } .\n\n`dateLambda` is expected to return a string with the date in `YYYY-MM-DD` format.\n\nDefaults to parsing the date from the release asset `updated_at` property. (`function:ipaAssetUpdatedAtToSourceDate`)",
           "type": "string"
         },
         "repo": {

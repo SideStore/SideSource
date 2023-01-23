@@ -2,7 +2,7 @@
 
 SideSource is a JavaScript/TypeScript framework for creating SideStore sources. It also has easy to use Cloudflare workers integration.
 
-Web docs are available at https://sidestore.io/sidesource.
+Web docs are available at https://sidestore.io/SideSource.
 
 Changelog is available at https://github.com/SideStore/SideSource/blob/main/CHANGELOG.md.
 
@@ -145,7 +145,7 @@ const stable = makeSourceHandler({ <stable config> });
 router.all("/stable", stable.handle);
 router.all("/preview/stable/:key", stable.handle);
 router.all("/reset-cache/stable/:key", stable.resetCache(["/stable"])); // Make sure to include array of routes to reset cache for
-// See for info on preview and reset-cache: https://sidestore.io/sidesource/#4-setting-up-a-key-for-preview-and-caching-resetting-functionality
+// See for info on preview and reset-cache: https://sidestore.io/SideSource/#4-setting-up-a-key-for-preview-and-caching-resetting-functionality
 
 const beta = makeSourceHandler({ <beta config> });
 
@@ -176,8 +176,8 @@ Next, [configure your source](#3-configuring-your-source).
 
 ### 3. Configuring your source
 
-Possible values for a config are available at https://sidestore.io/sidesource/interfaces/Config.html. By default, a config expects a
-[configURL](https://sidestore.io/sidesource/interfaces/Config.html#configURL), which is used to resolve a remote config.
+Possible values for a config are available at https://sidestore.io/SideSource/interfaces/Config.html. By default, a config expects a
+[configURL](https://sidestore.io/SideSource/interfaces/Config.html#configURL), which is used to resolve a remote config.
 
 Example for a config hosted in a GitHub repository:
 
@@ -321,7 +321,7 @@ This input would result in an unc0ver app being added into the source.
 
 This function only works for GitHub input lambdas, and it parses the ipaAsset's updated_at property and turns it into a date compatible with source versions.
 
-This function is currently the default for [dateLambda](https://sidestore.io/sidesource/interfaces/GitHubInput.html#dateLambda)
+This function is currently the default for [dateLambda](https://sidestore.io/SideSource/interfaces/GitHubInput.html#dateLambda)
 
 ---
 
