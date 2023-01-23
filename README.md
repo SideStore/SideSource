@@ -1,5 +1,7 @@
 # SideSource
 
+[![npm](https://img.shields.io/npm/v/sidesource?style=flat-square)](https://npmjs.com/package/sidesource)
+
 SideSource is a JavaScript/TypeScript framework for creating SideStore sources. It also has easy to use Cloudflare workers integration.
 
 Web docs are available at https://sidestore.io/SideSource.
