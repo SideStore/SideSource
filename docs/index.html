@@ -1,0 +1,313 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>sidesource</title><meta name="description" content="Documentation for sidesource"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"><a href="https://github.com/SideStore">GitHub</a><a href="https://www.npmjs.com/package/sidesource">NPM</a><a href="https://www.npmjs.com/package/sidestore-source-types">Source Types NPM</a><a href="https://wiki.sidestore.io/">Wiki</a><a href="https://sidestore.io/">Website</a></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">sidesource</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>sidesource</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#sidesource" id="sidesource" style="color: inherit; text-decoration: none;">
+  <h1>SideSource</h1>
+</a>
+<p>SideSource is a JavaScript/TypeScript framework for creating SideStore sources. It also has easy to use Cloudflare workers integration.</p>
+<p>Web docs are available at <a href="https://sidestore.io/sidesource">https://sidestore.io/sidesource</a>.</p>
+<p>Changelog is available at <a href="https://github.com/SideStore/SideSource/blob/main/CHANGELOG.md">https://github.com/SideStore/SideSource/blob/main/CHANGELOG.md</a>.</p>
+<p>Table of Contents:</p>
+<ul>
+<li><a href="#features">Features</a></li>
+<li><a href="#example">Example</a></li>
+<li><a href="#guides">Guides</a></li>
+<li><a href="#initial-cloudflare-worker-setup">Initial Cloudflare Worker Setup</a><ul>
+<li><a href="#1-creating-the-worker">1. Creating the worker</a></li>
+<li><a href="#2-making-a-single-source-worker">2. Making a single source worker</a></li>
+<li><a href="#2-making-a-multi-source-worker">2. Making a multi-source worker</a></li>
+<li><a href="#3-configuring-your-source">3. Configuring your source</a></li>
+<li><a href="#4-setting-up-a-key-for-preview-and-caching-resetting-functionality">4. Setting up a key for preview and caching resetting functionality</a></li>
+<li><a href="#5-testing-your-source">5. Testing your source</a></li>
+<li><a href="#6-deploying-your-worker">6. Deploying your worker</a></li>
+</ul>
+</li>
+<li><a href="#functions">Functions</a><ul>
+<li><a href="#built-in-functions">Built in functions</a><ul>
+<li><a href="#ipaassetupdatedattosourcedate"><code>ipaAssetUpdatedAtToSourceDate</code></a></li>
+<li><a href="#makeunc0verapp"><code>makeUnc0verApp</code></a></li>
+</ul>
+</li>
+<li><a href="#making-your-own-functions">Making your own functions</a><ul>
+<li><a href="#arguments">Arguments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+  <h2>Features</h2>
+</a>
+<ul>
+<li>Fully documented with guides on setup and advanced features</li>
+<li>Specify inputs from GitHub, other sources, or use a custom or raw input to provide apps and news from places that aren&#39;t supported by default</li>
+<li>Overrides system allowing you to change any property to any value</li>
+<li>Remote configs<ul>
+<li>Specify a URL or file in a GitHub repository to get the configuration from</li>
+<li>This allows you to change your config without having to re-deploy the Cloudflare Worker</li>
+<li>You can also specify a URL or file in a GitHub repository to base a config off of to reduce duplicate configuration</li>
+</ul>
+</li>
+<li>Cloudflare Workers integration<ul>
+<li>Caching</li>
+<li>Preview (view source without caching)</li>
+<li>Reset cache</li>
+<li>Preview and reset cache require a key that you can choose</li>
+</ul>
+</li>
+</ul>
+
+<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+  <h2>Example</h2>
+</a>
+<p><a href="https://apps.sidestore.io">apps.sidestore.io</a> is powered by SideSource, and you can view the configs and source code at <a href="https://github.com/SideStore/SideSource/tree/main/example">https://github.com/SideStore/SideSource/tree/main/example</a>. It has multiple
+different sources for each of the release channels (stable, beta and nightly) and uses custom functions to parse GitHub releases for changelog and other info.</p>
+
+<a href="#guides" id="guides" style="color: inherit; text-decoration: none;">
+  <h2>Guides</h2>
+</a>
+<ul>
+<li><a href="#initial-cloudflare-worker-setup">Initial Cloudflare Worker Setup</a>: A step by step guide on setting up a Cloudflare Worker and integrating it with SideSource.</li>
+<li><a href="#functions">Functions</a>: Detailed documentation on functions. Includes info on built in functions and a guide on how to create your own functions and use them in your source.</li>
+</ul>
+
+<a href="#initial-cloudflare-worker-setup" id="initial-cloudflare-worker-setup" style="color: inherit; text-decoration: none;">
+  <h2>Initial Cloudflare Worker Setup</h2>
+</a>
+<blockquote>
+<p><span style="color: #c69026; font-weight: bold"><strong>Warning</strong></span></p>
+<p>SideSource&#39;s caching abilities <strong>will only work on a custom domain (apex domain or subdomain will work).</strong> Caching will greatly reduce the amount of time responses take to complete. This is a
+limitation of Cloudflare Workers; any requests to workers at <code>*.workers.dev</code> will be unable to use the Cache API. Please see the
+<a href="https://developers.cloudflare.com/workers/runtime-apis/cache/">Cloudflare Workers documentation</a> for more info.</p>
+</blockquote>
+<p>First, ensure that you have node.js installed. You can either download it from <a href="https://nodejs.org">the official website</a>, or if you don&#39;t want to do a system-wide install, you can use a version
+manager such as <a href="https://nvm.sh">nvm</a>.</p>
+<p>Next, install wrangler, the CLI used for Cloudflare Workers:</p>
+<pre><code class="language-sh"><span class="hl-0">npm </span><span class="hl-1">install</span><span class="hl-0"> </span><span class="hl-1">-g</span><span class="hl-0"> </span><span class="hl-1">wrangler</span>
+</code></pre>
+<p>If you have a Cloudflare account, you can login with it using:</p>
+<pre><code class="language-sh"><span class="hl-0">wrangler </span><span class="hl-1">login</span>
+</code></pre>
+<p>However, this is not required until you want to deploy your worker.</p>
+<hr>
+
+<a href="#1-creating-the-worker" id="1-creating-the-worker" style="color: inherit; text-decoration: none;">
+  <h3>1. Creating the worker</h3>
+</a>
+<p>Create a new worker:</p>
+<pre><code class="language-sh"><span class="hl-0">wrangler </span><span class="hl-1">init</span><span class="hl-0"> &lt;</span><span class="hl-1">worker</span><span class="hl-0"> </span><span class="hl-1">nam</span><span class="hl-0">e&gt;</span>
+</code></pre>
+<p>Use these options:</p>
+<ul>
+<li>package.json: Yes</li>
+<li>TypeScript: Yes</li>
+<li>Worker type: Fetch handler</li>
+<li>Tests: No</li>
+</ul>
+<p>Then, <code>cd &lt;worker name&gt;</code>.</p>
+<p>You now have 2 options:</p>
+<ol>
+<li>If you only want 1 source, go to <a href="#2-making-a-single-source-worker">here</a></li>
+<li>If you want multiple sources on different routes (for example, for different release channels), go to <a href="#2-making-a-multi-source-worker">here</a></li>
+</ol>
+<hr>
+
+<a href="#2-making-a-single-source-worker" id="2-making-a-single-source-worker" style="color: inherit; text-decoration: none;">
+  <h3>2. Making a single source worker</h3>
+</a>
+<p>First, install the required dependencies:</p>
+<pre><code class="language-sh"><span class="hl-0">npm </span><span class="hl-1">i</span><span class="hl-0"> </span><span class="hl-1">sidesource</span>
+</code></pre>
+<p>Next, open <code>src/index.ts</code> and change it to this:</p>
+<pre><code class="language-ts"><span class="hl-2">import</span><span class="hl-0"> { </span><span class="hl-3">makeSourceHandler</span><span class="hl-0"> } </span><span class="hl-2">from</span><span class="hl-0"> </span><span class="hl-1">&quot;sidesource&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-2">export</span><span class="hl-0"> </span><span class="hl-2">default</span><span class="hl-0"> </span><span class="hl-4">makeSourceHandler</span><span class="hl-0">({ &lt;config&gt; });</span>
+</code></pre>
+<p>This will allow SideSource to handle all requests to the worker.</p>
+<p>Next, <a href="#3-configuring-your-source">configure your source</a>.</p>
+<hr>
+
+<a href="#2-making-a-multi-source-worker" id="2-making-a-multi-source-worker" style="color: inherit; text-decoration: none;">
+  <h3>2. Making a multi-source worker</h3>
+</a>
+<p>First, install the required dependencies:</p>
+<pre><code class="language-sh"><span class="hl-0">npm </span><span class="hl-1">i</span><span class="hl-0"> </span><span class="hl-1">sidesource</span><span class="hl-0"> </span><span class="hl-1">itty-router</span>
+</code></pre>
+<p>Next, open <code>src/index.ts</code> and change it to this:</p>
+<pre><code class="language-ts"><span class="hl-2">import</span><span class="hl-0"> { </span><span class="hl-3">Router</span><span class="hl-0"> } </span><span class="hl-2">from</span><span class="hl-0"> </span><span class="hl-1">&quot;itty-router&quot;</span><span class="hl-0">;</span><br/><span class="hl-2">import</span><span class="hl-0"> { </span><span class="hl-3">makeSourceHandler</span><span class="hl-0"> } </span><span class="hl-2">from</span><span class="hl-0"> </span><span class="hl-1">&quot;sidesource&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-6">router</span><span class="hl-0"> = </span><span class="hl-4">Router</span><span class="hl-0">();</span><br/><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-6">stable</span><span class="hl-0"> = </span><span class="hl-4">makeSourceHandler</span><span class="hl-0">({ &lt;stable config&gt; });</span><br/><br/><span class="hl-3">router</span><span class="hl-0">.</span><span class="hl-4">all</span><span class="hl-0">(</span><span class="hl-1">&quot;/stable&quot;</span><span class="hl-0">, </span><span class="hl-3">stable</span><span class="hl-0">.</span><span class="hl-3">handle</span><span class="hl-0">);</span><br/><span class="hl-3">router</span><span class="hl-0">.</span><span class="hl-4">all</span><span class="hl-0">(</span><span class="hl-1">&quot;/preview/stable/:key&quot;</span><span class="hl-0">, </span><span class="hl-3">stable</span><span class="hl-0">.</span><span class="hl-3">handle</span><span class="hl-0">);</span><br/><span class="hl-3">router</span><span class="hl-0">.</span><span class="hl-4">all</span><span class="hl-0">(</span><span class="hl-1">&quot;/reset-cache/stable/:key&quot;</span><span class="hl-0">, </span><span class="hl-3">stable</span><span class="hl-0">.</span><span class="hl-4">resetCache</span><span class="hl-0">([</span><span class="hl-1">&quot;/stable&quot;</span><span class="hl-0">])); </span><span class="hl-7">// Make sure to include array of routes to reset cache for</span><br/><span class="hl-7">// See for info on preview and reset-cache: https://sidestore.io/sidesource/#4-setting-up-a-key-for-preview-and-caching-resetting-functionality</span><br/><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-6">beta</span><span class="hl-0"> = </span><span class="hl-4">makeSourceHandler</span><span class="hl-0">({ &lt;beta config&gt; });</span><br/><br/><span class="hl-3">router</span><span class="hl-0">.</span><span class="hl-4">all</span><span class="hl-0">(</span><span class="hl-1">&quot;/beta&quot;</span><span class="hl-0">, </span><span class="hl-3">beta</span><span class="hl-0">.</span><span class="hl-3">handle</span><span class="hl-0">);</span><br/><span class="hl-3">router</span><span class="hl-0">.</span><span class="hl-4">all</span><span class="hl-0">(</span><span class="hl-1">&quot;/preview/beta/:key&quot;</span><span class="hl-0">, </span><span class="hl-3">beta</span><span class="hl-0">.</span><span class="hl-3">handle</span><span class="hl-0">);</span><br/><span class="hl-3">router</span><span class="hl-0">.</span><span class="hl-4">all</span><span class="hl-0">(</span><span class="hl-1">&quot;/reset-cache/beta/:key&quot;</span><span class="hl-0">, </span><span class="hl-3">beta</span><span class="hl-0">.</span><span class="hl-4">resetCache</span><span class="hl-0">([</span><span class="hl-1">&quot;/beta&quot;</span><span class="hl-0">]));  </span><span class="hl-7">// Make sure to include array of routes to reset cache for</span><br/><br/><span class="hl-7">// 404 fallback (must be added last so it doesn&#39;t overwrite other routes)</span><br/><span class="hl-3">router</span><span class="hl-0">.</span><span class="hl-4">all</span><span class="hl-0">(</span><span class="hl-1">&quot;*&quot;</span><span class="hl-0">, () </span><span class="hl-5">=&gt;</span><span class="hl-0"> </span><span class="hl-5">new</span><span class="hl-0"> </span><span class="hl-4">Response</span><span class="hl-0">(</span><span class="hl-1">&quot;404 Not Found&quot;</span><span class="hl-0">, { </span><span class="hl-3">status:</span><span class="hl-0"> </span><span class="hl-8">404</span><span class="hl-0"> }));</span><br/><br/><span class="hl-2">export</span><span class="hl-0"> </span><span class="hl-2">default</span><span class="hl-0"> { </span><span class="hl-3">fetch:</span><span class="hl-0"> </span><span class="hl-3">router</span><span class="hl-0">.</span><span class="hl-3">handle</span><span class="hl-0"> };</span>
+</code></pre>
+<p>This will use <a href="https://github.com/kwhitley/itty-router">itty-router</a> to create 2 sources:</p>
+<ol>
+<li>Available on <code>/stable</code>, preview at <code>/preview/stable/&lt;key&gt;</code>, reset cache at <code>/reset-cache/stable/&lt;key&gt;</code></li>
+<li>Available on <code>/beta</code>, preview at <code>/preview/beta/&lt;key&gt;</code>, reset cache at <code>/reset-cache/beta/&lt;key&gt;</code></li>
+</ol>
+<p>If you change the routes that the sources are available at, <strong>make sure to update the reset cache route with the routes that it should reset the cache for</strong>.</p>
+<p>You can also make a source available at the base with the <code>/</code> route.</p>
+<p>The sources can have separate configs, and therefore produce 2 different sources.</p>
+<p>Next, <a href="#3-configuring-your-source">configure your source</a>.</p>
+<hr>
+
+<a href="#3-configuring-your-source" id="3-configuring-your-source" style="color: inherit; text-decoration: none;">
+  <h3>3. Configuring your source</h3>
+</a>
+<p>Possible values for a config are available at <a href="https://sidestore.io/sidesource/interfaces/Config.html">https://sidestore.io/sidesource/interfaces/Config.html</a>. By default, a config expects a
+<a href="https://sidestore.io/sidesource/interfaces/Config.html#configURL">configURL</a>, which is used to resolve a remote config.</p>
+<p>Example for a config hosted in a GitHub repository:</p>
+<pre><code class="language-ts"><span class="hl-4">makeSourceHandler</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-3">configURL:</span><span class="hl-0"> </span><span class="hl-1">&quot;github:SideStore/SideSource/example/config/stable.json&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">});</span>
+</code></pre>
+<blockquote>
+<p><span style="color: #c69026; font-weight: bold"><strong>Warning</strong></span></p>
+<p>If you are not using a custom domain (aka you are not using caching), <strong>you should not use any <code>github:</code> URLs.</strong> <code>github:</code> URLs resolve using GitHub&#39;s API, which is limited to 60 requests per hour
+without an access token, which will be exceeded very quickly without caching. Instead, use the URL that your browser goes to when viewing the &quot;raw&quot; contents of a file. (the raw equivalent of the
+above example URL would be <a href="https://github.com/SideStore/SideSource/raw/main/example/config/stable.json">https://github.com/SideStore/SideSource/raw/main/example/config/stable.json</a>)</p>
+</blockquote>
+<p>However, if you want to use the config you provide when calling <code>makeSourceHandler</code> and you don&#39;t want to use a remote config, you can set <code>remoteConfig</code> to <code>false</code>. <strong>This is not recommended because
+you will need to re-deploy your Cloudflare Worker every time you want to change the config.</strong> If you use a remote config, you can just
+<a href="#4-setting-up-a-key-for-preview-and-caching-resetting-functionality">reset the cache</a> to fetch the latest config.</p>
+<p>If you haven&#39;t already, you will probably want to upload your configs as JSON files to a github repository to use as remote configs. (JSON5 is supported.) There is also a JSON schema available:</p>
+<pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">    </span><span class="hl-9">&quot;$schema&quot;</span><span class="hl-0">: </span><span class="hl-1">&quot;https://github.com/SideStore/SideSource/raw/main/dist/schema.json&quot;</span><br/><span class="hl-0">}</span>
+</code></pre>
+<p>If you have multiple release channels, you can reduce duplication configuration with a base config. Base configs are specified similarly to remote configs, and the same rules apply to them.</p>
+<pre><code class="language-ts"><span class="hl-4">makeSourceHandler</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-3">configURL:</span><span class="hl-0"> </span><span class="hl-1">&quot;github:SideStore/SideSource/example/config/beta.json&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-3">baseConfigURL:</span><span class="hl-0"> </span><span class="hl-1">&quot;github:SideStore/SideSource/example/config/stable.json&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">});</span>
+</code></pre>
+<p>If your base config has this in it:</p>
+<pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">    </span><span class="hl-9">&quot;source&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">        </span><span class="hl-9">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-1">&quot;Example Source&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">        </span><span class="hl-9">&quot;identifier&quot;</span><span class="hl-0">: </span><span class="hl-1">&quot;com.example&quot;</span><br/><span class="hl-0">    }</span><br/><span class="hl-0">}</span>
+</code></pre>
+<p>And your normal config has this in it:</p>
+<pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">    </span><span class="hl-9">&quot;source&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">        </span><span class="hl-9">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-1">&quot;Example Source 2&quot;</span><br/><span class="hl-0">    }</span><br/><span class="hl-0">}</span>
+</code></pre>
+<p>It will result in this:</p>
+<pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">    </span><span class="hl-9">&quot;source&quot;</span><span class="hl-0">: {</span><br/><span class="hl-0">        </span><span class="hl-9">&quot;name&quot;</span><span class="hl-0">: </span><span class="hl-1">&quot;Example Source 2&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">        </span><span class="hl-9">&quot;identifier&quot;</span><span class="hl-0">: </span><span class="hl-1">&quot;com.example&quot;</span><br/><span class="hl-0">    }</span><br/><span class="hl-0">}</span>
+</code></pre>
+<hr>
+
+<a href="#4-setting-up-a-key-for-preview-and-caching-resetting-functionality" id="4-setting-up-a-key-for-preview-and-caching-resetting-functionality" style="color: inherit; text-decoration: none;">
+  <h3>4. Setting up a key for preview and caching resetting functionality</h3>
+</a>
+<p>A secret key is required for the preview and caching setting functionality. It doesn&#39;t have to be very unique, but you probably don&#39;t want people knowing it because they could use it to use up the 60
+github API requests you get per hour, and then cause inputs (or your whole source) to not work. A good way to get a secret key is by using a UUID, or just using the first 8 characters of one.</p>
+<p>Now that you have your key, you need to allow the worker to see it. Create a <code>.dev.vars</code> file (you will want this to be in your .gitignore):</p>
+<pre><code class="language-sh"><span class="hl-3">KEY</span><span class="hl-0">=&lt;</span><span class="hl-1">your</span><span class="hl-0"> key&gt;</span>
+</code></pre>
+<p>You also need to give it to wrangler:</p>
+<pre><code class="language-sh"><span class="hl-4">echo</span><span class="hl-0"> &lt;</span><span class="hl-1">your</span><span class="hl-0"> </span><span class="hl-1">ke</span><span class="hl-0">y&gt; | wrangler </span><span class="hl-1">secret</span><span class="hl-0"> </span><span class="hl-1">put</span><span class="hl-0"> </span><span class="hl-1">KEY</span>
+</code></pre>
+<p>You should now be able to use the preview and reset cache functionality.</p>
+<ul>
+<li>Preview: Go to <code>/preview/&lt;your key&gt;</code> (the route may be different if you are using a multi source setup). This will give you the source while bypassing cache. This is a good way to test before
+resetting the cache. You can tell if a source is bypassing the cache because if it is, the response will have a header named <code>X-Skipping-Cache</code>.</li>
+<li>Reset cache: Go to <code>/reset-cache/&lt;your key&gt;</code> (the route may be different if you are using a multi source setup). This will reset the cache. If you have a GitHub Actions workflow you use for
+releasing your app, you can make a step that runs <code>curl &lt;source url&gt;/reset-cache/${{ secrets.KEY }}</code> after uploading a release. (make sure to add your key as a secret in the github actions
+settings)</li>
+</ul>
+<hr>
+
+<a href="#5-testing-your-source" id="5-testing-your-source" style="color: inherit; text-decoration: none;">
+  <h3>5. Testing your source</h3>
+</a>
+<p>To locally test your source, run:</p>
+<pre><code class="language-sh"><span class="hl-0">wrangler </span><span class="hl-1">dev</span><span class="hl-0"> </span><span class="hl-1">--local</span>
+</code></pre>
+<p>Your worker will start running and you can use the URL it gives you to test it.</p>
+<hr>
+
+<a href="#6-deploying-your-worker" id="6-deploying-your-worker" style="color: inherit; text-decoration: none;">
+  <h3>6. Deploying your worker</h3>
+</a>
+<p>To deploy your worker, run:</p>
+<pre><code class="language-sh"><span class="hl-0">wrangler </span><span class="hl-1">publish</span>
+</code></pre>
+<p>If you want to use a custom domain for your worker (and allow SideSource to cache results), please see
+<a href="https://developers.cloudflare.com/workers/platform/triggers/custom-domains/">Cloudflare&#39;s documentation</a>.</p>
+
+<a href="#functions" id="functions" style="color: inherit; text-decoration: none;">
+  <h2>Functions</h2>
+</a>
+<p>Functions allow for dynamic logic that isn&#39;t possible to specify in a JSON config.</p>
+
+<a href="#built-in-functions" id="built-in-functions" style="color: inherit; text-decoration: none;">
+  <h3>Built in functions</h3>
+</a>
+<p>As with any function, built in functions can be used with the format <code>function:&lt;function name&gt;</code>. Example of using <a href="#makeunc0verapp"><code>makeUnc0verApp</code></a> in a custom input:</p>
+<pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">    </span><span class="hl-9">&quot;type&quot;</span><span class="hl-0">: </span><span class="hl-1">&quot;custom&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-9">&quot;functionName&quot;</span><span class="hl-0">: </span><span class="hl-1">&quot;function:makeUnc0verApp&quot;</span><br/><span class="hl-0">}</span>
+</code></pre>
+<p>This input would result in an unc0ver app being added into the source.</p>
+<hr>
+
+<a href="#ipaassetupdatedattosourcedate" id="ipaassetupdatedattosourcedate" style="color: inherit; text-decoration: none;">
+  <h4><code>ipaAssetUpdatedAtToSourceDate</code></h4>
+</a>
+<p>This function only works for GitHub input lambdas, and it parses the ipaAsset&#39;s updated_at property and turns it into a date compatible with source versions.</p>
+<p>This function is currently the default for <a href="https://sidestore.io/sidesource/interfaces/GitHubInput.html#dateLambda">dateLambda</a></p>
+<hr>
+
+<a href="#makeunc0verapp" id="makeunc0verapp" style="color: inherit; text-decoration: none;">
+  <h4><code>makeUnc0verApp</code></h4>
+</a>
+<p>This function only works for custom inputs, and it parses <a href="https://unc0ver.dev/releases.json">https://unc0ver.dev/releases.json</a> and creates an app from it.</p>
+<hr>
+
+<a href="#making-your-own-functions" id="making-your-own-functions" style="color: inherit; text-decoration: none;">
+  <h3>Making your own functions</h3>
+</a>
+<p>Example functions: <a href="https://github.com/SideStore/SideSource/blob/main/example/src/functions.ts">https://github.com/SideStore/SideSource/blob/main/example/src/functions.ts</a></p>
+<p>Example usage of example functions: <a href="https://github.com/SideStore/SideSource/blob/main/example/config/stable.json#L13">https://github.com/SideStore/SideSource/blob/main/example/config/stable.json#L13</a></p>
+<p>You can pass your own functions as the second parameter to <code>makeSourceHandler</code> and <code>makeSource</code>. Example:</p>
+<pre><code class="language-ts"><span class="hl-4">makeSourceHandler</span><span class="hl-0">({</span><br/><span class="hl-0">    &lt;your config&gt;</span><br/><span class="hl-0">}, {</span><br/><span class="hl-0">    </span><span class="hl-4">myFunction</span><span class="hl-3">:</span><span class="hl-0"> () </span><span class="hl-5">=&gt;</span><span class="hl-0"> </span><span class="hl-1">&quot;example&quot;</span><br/><span class="hl-0">});</span>
+</code></pre>
+<p>Then, you can use this function in properties that allow it as <code>function:myFunction</code>.</p>
+<hr>
+
+<a href="#arguments" id="arguments" style="color: inherit; text-decoration: none;">
+  <h4>Arguments</h4>
+</a>
+<p>Some properties will give arguments to functions it runs. For example, GitHub input lambdas will provide 2 arguments:</p>
+<ol>
+<li><code>release</code>: The release object from the GitHub API.</li>
+<li><code>ipaAsset</code>: The asset object that was picked using assetRegex.</li>
+</ol>
+<p>Please check the documentation for more info on the specific arguments properties give.</p>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">sidesource</a>
+<ul></ul></li></ul></div></details></nav>
+<nav class="tsd-navigation secondary menu-sticky">
+<ul>
+<li class="tsd-kind-interface"><a href="interfaces/Config.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-256-path"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)" id="icon-256-text"></path></svg>Config</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/CustomInput.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Custom<wbr/>Input</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/GitHubInput.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Git<wbr/>Hub<wbr/>Input</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/RawInput.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Raw<wbr/>Input</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/SourceInput.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Source<wbr/>Input</a></li>
+<li class="tsd-kind-type-alias"><a href="types/Input.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-4194304-path"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)" id="icon-4194304-text"></path></svg>Input</a></li></ul></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>

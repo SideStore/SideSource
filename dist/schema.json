@@ -1,0 +1,483 @@
+{
+  "$ref": "#/definitions/Config",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "App": {
+      "additionalProperties": false,
+      "properties": {
+        "beta": {
+          "description": "Here you can specify whether apps should be classified as a beta application and receive a special beta tag on its app listing.\n\nCurrently, this is also tied in with the Patreon app locking system used with AltStore/Delta betas. But it is not recommended to attempt to use it for this purpose since it will ultimately be changing in the future.",
+          "type": "boolean"
+        },
+        "bundleIdentifier": {
+          "description": "SideStore uses this to separate apps as individual listings.\n\nThis must be the same as your application's `CFBundleIdentifier` (located in Info.plist) in order for SideStore to be able to open the app after installation. Technically, it can be any unique string, but for all SideStore functionality to work, it should be the same as the application.",
+          "type": "string"
+        },
+        "developerName": {
+          "description": "Also self-explanatory, this is just the name of the developer/developers that will appear in the SideStore app listing.",
+          "type": "string"
+        },
+        "downloadURL": {
+          "deprecated": "Please use the {@link versions } property, this is just for backwards compatibility",
+          "description": "This should point directly to wherever your IPA is hosted.\n\nIf you are planning on releasing your app in the future, this property is still required but it doesn't have to actually point to a valid file.",
+          "type": "string"
+        },
+        "iconURL": {
+          "description": "This should point directly to wherever you host the icon for your app. Note that this doesn't have to be the same as the icon used for the actual application, but it is recommended to maintain consistency.",
+          "type": "string"
+        },
+        "localizedDescription": {
+          "description": "This is where you can include every feature and detail about your app. The user will see the first 5 lines of text then they can click \"More\" to expand to the full section. So you should think of the first couple sentences as a quick pitch for your app.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Rather self-explanatory, this is the name of your app as it should appear in the SideStore.",
+          "type": "string"
+        },
+        "permissions": {
+          "description": "This is to show the user what various permissions your app requires. Create an entry for each separate permission your app requires.\n\nIt is *highly* recommended to include these permissions if your app uses them as this disclosure provides additional trust with the user.",
+          "items": {
+            "$ref": "#/definitions/Permission"
+          },
+          "type": "array"
+        },
+        "screenshotURLs": {
+          "description": "These should point directly to any number of screenshots/images that display your app's functionality. The first two will be displayed under the app listing in the browse tab, and the rest will be visible on the app's page.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "size": {
+          "deprecated": "Please use the {@link versions } property, this is just for backwards compatibility",
+          "description": "This is an integer value that should be set equivalent to the size of your IPA in bytes. This gives the user an idea of how large the application is before they install.",
+          "type": "number"
+        },
+        "subtitle": {
+          "description": "This should be a very short description of your app that will appear in the browse tab of SideStore. It should give a quick one sentence explanation of your app and why a user wants it. The most effective subtitles tend to around 6-10 words long.",
+          "type": "string"
+        },
+        "tintColor": {
+          "description": "This might take some experimentation, but the best tint color is usually choosing one of the darker colors represented in your app icon. The tint color will be used in two places:\n\n- For the install button\n- As a background color for the larger app listing bubble (but this will be a lighter shade)\n\nThe tint color must be in the 6 character Hex format, with the '#' before the 6 characters as optional.",
+          "type": "string"
+        },
+        "version": {
+          "deprecated": "Please use the {@link versions } property, this is just for backwards compatibility",
+          "description": "This must match your application's `CFBundleShortVersionString` (located in Info.plist) in order for SideStore updates to work properly.",
+          "type": "string"
+        },
+        "versionDate": {
+          "deprecated": "Please use the {@link versions } property, this is just for backwards compatibility",
+          "description": "This should be the date that you are releasing your application, and should be written in the format `YYYY-MM-DD` (other formats standard formats will work as well, but this is the only info required and shown to the user).\n\nIf you are planning on releasing your application in the future, after everyone has installed your source, there is an additional format available: `YYYY-MM-DDTHH:MM:SS`\n\nUsing this format will create an automatic timer countdown to the release time specified. Please note that the time is automatically assumed to be UTC and uses a 24 hour clock.\n\nIf you would rather use the time in your timezone, add `-08:00` to the end of the date, where that `-08` corresponds to the number of hours difference between UTC and your timezone. It is also important to note that UTC does not change with daylight saving time, so be careful if you are releasing around that time of year as it can be easy to miscalculate.",
+          "type": "string"
+        },
+        "versionDescription": {
+          "deprecated": "Please use the {@link versions } property, this is just for backwards compatibility",
+          "description": "Use this to tell the user what new features you introduced or what bugs you squashed with the latest version.",
+          "type": "string"
+        },
+        "versions": {
+          "description": "A list containing the version(s) of your application. New with AltSource v2.0 API.\n\nImportant note: SideStore will display the first version (with compatible min/max iOS versions) in the list as the \"latest\" release, regardless of version or date. So keep in mind that the order that versions appear must be in reverse chronological order.",
+          "items": {
+            "$ref": "#/definitions/Version"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "bundleIdentifier",
+        "developerName",
+        "localizedDescription",
+        "iconURL",
+        "versions"
+      ],
+      "type": "object"
+    },
+    "Config": {
+      "additionalProperties": false,
+      "properties": {
+        "baseConfigURL": {
+          "description": "Specifies the URL to base the config on. This is especially helpful when you have multiple release channels and you need a different source for each release channel but want to reduce duplicate configuration.\n\n**If the config is hosted in a public GitHub repository, please use the format `github:{user or org}/{repo name}/{file path}`. For example, `github:SideStore/SideSource/example/config/base.json`.** This will allow us to get around the rate limiting of raw files using the GitHub API.\n\nIf you are not using a custom domain (aka you are not using caching), **you should not use any `github:` URLs.** `github:` URLs resolve using GitHub's API, which is limited to 60 requests per hour without an access token, which will be exceeded very quickly without caching. Instead, use the URL that your browser goes to when viewing the \"raw\" contents of a file.",
+          "type": "string"
+        },
+        "cacheTime": {
+          "description": "Number of minutes results will be cached for. If 0, caching will be disabled.\n\nDefaults to 4 hours (240 minutes).",
+          "type": "number"
+        },
+        "configURL": {
+          "description": "Specifies the URL to fetch the config as JSON. This allows for updating the config without having to re-deploy the cloudflare worker.\n\n**If the config is hosted in a public GitHub repository, please use the format `github:{user or org}/{repo name}/{file path}`. If you need to specify a branch, use this format: `github:{user or org}/{repo name}/{file path}?{branch}`. For example, `github:SideStore/SideSource/example/config/stable.json`.** This will allow us to get around the rate limiting of raw files using the GitHub API.\n\nIf you are not using a custom domain (aka you are not using caching), **you should not use any `github:` URLs.** `github:` URLs resolve using GitHub's API, which is limited to 60 requests per hour without an access token, which will be exceeded very quickly without caching. Instead, use the URL that your browser goes to when viewing the \"raw\" contents of a file.\n\nRequired if  {@link  remoteConfig }  is not false. Otherwise, it does nothing.",
+          "type": "string"
+        },
+        "inputs": {
+          "description": "Inputs for the source.",
+          "items": {
+            "$ref": "#/definitions/Input"
+          },
+          "type": "array"
+        },
+        "news": {
+          "description": "Please see https://sidestore.io/sidestore-source-types/interfaces/News.html for possible values",
+          "items": {
+            "$ref": "#/definitions/News"
+          },
+          "type": "array"
+        },
+        "overrides": {
+          "description": "An object that will be used to override properties.\n\n### Example 1\n\nYour source output looks something like this: ```json {     \"name\": \"Source\",     \"identifier\": \"com.example.source\",     \"apps\": [         {             \"name\": \"My App\",             \"identifier\": \"com.example.myapp\"         }     ] } ```\n\nIf you want to change the `name` property of the first app, you could set  {@link  overrides }  to this: ```json {     \"apps\": [         {             \"name\": \"Override\"         }     ] } ```\n\nResult: ```json {     \"name\": \"Source\",     \"identifier\": \"com.example.source\",     \"apps\": [         {             \"name\": \"Override\",             \"identifier\": \"com.example.myapp\"         }     ] } ```\n\n### Example 2\n\nHowever, if you have more than one app, like this: ```json {     \"name\": \"Source\",     \"identifier\": \"com.example.source\",     \"apps\": [         {             \"name\": \"My App\",             \"identifier\": \"com.example.myapp\"         },         {             \"name\": \"My App 2\",             \"identifier\": \"com.example.myapp2\"         }     ] } ```\n\nIf you only want to override the second one, you will need to do this: ```json {     \"apps\": [         {},         {             \"name\": \"Override\"         }     ] } ```\n\nNote the first empty app override. Result: ```json {     \"name\": \"Source\",     \"identifier\": \"com.example.source\",     \"apps\": [         {             \"name\": \"My App\",             \"identifier\": \"com.example.myapp\"         },         {             \"name\": \"Override\",             \"identifier\": \"com.example.myapp2\"         }     ] } ```\n\n### Example 3\n\nYou can also manually specify the paths to override with [property paths](https://lodash.com/docs/4.17.15#set): ```json {     \"apps[0].name\": \"Override\" } ```\n\nResult (using previous 2 app example): ```json {     \"name\": \"Source\",     \"identifier\": \"com.example.source\",     \"apps\": [         {             \"name\": \"Override\",             \"identifier\": \"com.example.myapp\"         },         {             \"name\": \"My App 2\",             \"identifier\": \"com.example.myapp2\"         }     ] } ```",
+          "type": "object"
+        },
+        "remoteConfig": {
+          "description": "If set to false, the config will not be fetched from  {@link  configURL } . **This is not recommended because you will have to re-deploy your cloudflare worker whenever you want to change the config.**\n\nDefaults to true.",
+          "type": "boolean"
+        },
+        "source": {
+          "additionalProperties": false,
+          "description": "Source metadata",
+          "properties": {
+            "identifier": {
+              "description": "This is a bundle identifier SideStore uses to keep your source separate from every other source. For this reason, it is recommended to follow Apple's standard for an identifier.\n\nIt's important to note here that changing this identifier down the road will have **consequences**. Users with the source already installed will suddenly have conflicting identifiers with the online source and will cause an error in SideStore that will require them to completely remove the source before they can add it back.",
+              "type": "string"
+            },
+            "name": {
+              "description": "The name of your source.",
+              "type": "string"
+            },
+            "sourceURL": {
+              "description": "If your user adds your Source using a URL shortener or you have the link to file stored on CDN, it is recommended that you include this property. This allows SideStore to save the exact link to the file which speeds up retrieval time.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "identifier"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "CustomInput": {
+      "additionalProperties": false,
+      "description": "An input that allows you to use a function to get apps and optionally news.\n\n** {@link  type }  MUST be `custom`**",
+      "properties": {
+        "functionName": {
+          "description": "The name of a JavaScript/TypeScript function to use to get the app and news values. **It MUST return an object with an array of [App](https://sidestore.io/sidestore-source-types/interfaces/App.html) objects called `apps` and optionally an array of [News](https://sidestore.io/sidestore-source-types/interfaces/News.html) objects called `news`.**\n\nUnlike the lambda properties in  {@link  GitHubInput } , **this property does not need to be prefixed with `function:`.**\n\nSee https://sidestore.io/sidesource/#functions for more info on built in functions and how you can make your own.",
+          "type": "string"
+        },
+        "type": {
+          "const": "custom",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "functionName"
+      ],
+      "type": "object"
+    },
+    "GitHubInput": {
+      "additionalProperties": false,
+      "description": "An input for GitHub Releases.\n\nCurrently, we cannot support GitHub Actions since artifacts can only be downloaded in zip format. However, you can add a build step that updates a release using [IsaacShelton/update-existing-release](https://github.com/IsaacShelton/update-existing-release).\n\n** {@link  type }  MUST be `github`**",
+      "properties": {
+        "allowPrereleases": {
+          "description": "If true, it will allow a prerelease to be the latest release. This will only do anything if  {@link  tag }  is `latest`.\n\nDefaults to false.",
+          "type": "boolean"
+        },
+        "appMetadata": {
+          "additionalProperties": false,
+          "description": "Metadata for the app. See https://sidestore.io/sidestore-source-types/interfaces/App.html for updated documentation on each value",
+          "properties": {
+            "bundleIdentifier": {
+              "type": "string"
+            },
+            "developerName": {
+              "type": "string"
+            },
+            "iconURL": {
+              "type": "string"
+            },
+            "localizedDescription": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "permissions": {
+              "items": {
+                "$ref": "#/definitions/Permission"
+              },
+              "type": "array"
+            },
+            "screenshotURLs": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "tintColor": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "bundleIdentifier",
+            "developerName",
+            "localizedDescription",
+            "iconURL"
+          ],
+          "type": "object"
+        },
+        "assetRegex": {
+          "description": "The regex used to match the IPA asset from the assets in the release. I recommend using https://www.regextester.com/ to test your regex.\n\nDefaults to `(.*).ipa`",
+          "type": "string"
+        },
+        "changelogLambda": {
+          "description": "See  {@link  dateLambda }  for info on how to use lambdas.\n\n`changelogLambda` is expected to return a string with the version changelog.\n\nDefaults to the release body. (`release.body`)",
+          "type": "string"
+        },
+        "dateLambda": {
+          "description": "Lambdas have a few options for returning the required output: 1. A property path that points to the property that should correspond to the output. Examples:    - `release.body`    - `ipaAsset.name` 2. The name of a JavaScript/TypeScript function prefixed with `function:` provided when creating the handler/source. See https://sidestore.io/sidesource/#functions for more info on built in functions and how you can make your own.\n\nYou will have access to the `release` variable (see https://docs.github.com/en/rest/releases/releases#get-the-latest-release) and `ipaAsset` variable, which is the asset that was picked using  {@link  assetRegex } .\n\n`dateLambda` is expected to return a string with the date in `YYYY-MM-DD` format.\n\nDefaults to parsing the date from the release asset `updated_at` property. (`function:ipaAssetUpdatedAtToSourceDate`)",
+          "type": "string"
+        },
+        "repo": {
+          "description": "The repository to use. Must be in `{user or org}/{repo name}` format.",
+          "type": "string"
+        },
+        "tag": {
+          "description": "The tag to use when fetching the release. If the tag is `latest`, it will use the latest release. See  {@link  allowPrereleases }  if you want to allow prereleases when fetching the latest release.",
+          "type": "string"
+        },
+        "type": {
+          "const": "github",
+          "type": "string"
+        },
+        "versionLambda": {
+          "description": "See  {@link  dateLambda }  for info on how to use lambdas.\n\n`versionLambda` is expected to return a string with the app version.\n\nDefaults to the release tag name. (`release.tag_name`)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "repo",
+        "tag",
+        "appMetadata"
+      ],
+      "type": "object"
+    },
+    "Input": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/GitHubInput"
+        },
+        {
+          "$ref": "#/definitions/SourceInput"
+        },
+        {
+          "$ref": "#/definitions/RawInput"
+        },
+        {
+          "$ref": "#/definitions/CustomInput"
+        }
+      ],
+      "description": "This can be one of the input types. The `type` value must be the value that is specified or they may not be parsed correctly."
+    },
+    "News": {
+      "additionalProperties": false,
+      "properties": {
+        "appID": {
+          "description": "This must be an exact match to the `bundleIdentifier` of the app listing in order for it to work properly.\n\nThis is required if you want an app listing to appear below the news item for quick installation.\n\nIt also makes it so that when a user click on the news item, it will take them to the specified app's page. This will be overridden if a url is also specified.",
+          "type": "string"
+        },
+        "caption": {
+          "description": "Similar to the caption for your app listing, this should be about a sentence. While there is technically no limit to the caption size, no one wants a giant text blob in their news feed.\n\nIf there is more to your news than a couple sentences can deliver, try using an image or link to a website.",
+          "type": "string"
+        },
+        "date": {
+          "description": "This date should follow the same format as  {@link  Version.date  }  for app listings: `YYYY-MM-DD`.\n\nPlease note that the date does not currently display on any news items and neither does the time (if provided). Instead, it is required for SideStore to organize the news into chronological order.",
+          "type": "string"
+        },
+        "identifier": {
+          "description": "This must be a unique identifier that should not be used by any other news items in SideStore.",
+          "type": "string"
+        },
+        "imageURL": {
+          "description": "This should be a direct link to any image you want to feature on your news item. The recommended size for this image is 960x540 or any image with a 16:9 aspect ratio. SideStore will also take whatever image you provide it with, then crop and center it to the correct aspect ratio. Be careful not to put any important information in the corners since the SideStore rounds the images corners by default.",
+          "type": "string"
+        },
+        "notify": {
+          "description": "When set to true, SideStore will send all users of the source a notification with the title of the news item.\n\nNote that the notification will not be instantaneous: it will occur whenever SideStore attempts a background refresh (the same time that update notifications occur) and it does require users to leave SideStore running in the background.",
+          "type": "boolean"
+        },
+        "tintColor": {
+          "description": "This has the same function as  {@link  App.tintColor  } . The only difference is that now it will be used as the background color for your news item. Keep in mind that it does not apply to the app listing if you supplied an  {@link  appID } . The app listing that appears below the news article will use the tintColor specific to that app.",
+          "type": "string"
+        },
+        "title": {
+          "description": "Fairly straightforward, this will be the headline for your news item.",
+          "type": "string"
+        },
+        "url": {
+          "description": "This should be used to link users to a website when they click the news item. The link will open in SideStore's built-in web browser (based off safari).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "identifier",
+        "caption",
+        "date"
+      ],
+      "type": "object"
+    },
+    "Permission": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/PermissionType",
+          "description": "The accepted permission types are the following:\n\n- photos\n- camera\n- location\n- contacts\n- reminders\n- music\n- microphone\n- speech-recognition\n- background-audio\n- background-fetch\n- bluetooth\n- network\n- calendars\n- faceid\n- siri\n- motion"
+        },
+        "usageDescription": {
+          "description": "This should explain what the permission is and why your app needs it.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "usageDescription"
+      ],
+      "type": "object"
+    },
+    "PermissionType": {
+      "enum": [
+        "photos",
+        "camera",
+        "location",
+        "contacts",
+        "reminders",
+        "music",
+        "microphone",
+        "speech-recognition",
+        "background-audio",
+        "background-fetch",
+        "bluetooth",
+        "network",
+        "calendars",
+        "faceid",
+        "siri",
+        "motion"
+      ],
+      "type": "string"
+    },
+    "RawInput": {
+      "additionalProperties": false,
+      "description": "An input that allows you to manually specify each value.\n\n** {@link  type }  MUST be `raw`**",
+      "properties": {
+        "app": {
+          "$ref": "#/definitions/App",
+          "description": "Please see https://sidestore.io/sidestore-source-types/interfaces/App.html for possible values"
+        },
+        "news": {
+          "description": "Please see https://sidestore.io/sidestore-source-types/interfaces/News.html for possible values",
+          "items": {
+            "$ref": "#/definitions/News"
+          },
+          "type": "array"
+        },
+        "type": {
+          "const": "raw",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "app"
+      ],
+      "type": "object"
+    },
+    "SourceInput": {
+      "additionalProperties": false,
+      "description": "An input for cherry picking apps and news from another source.\n\n** {@link  type }  MUST be `source`**",
+      "properties": {
+        "allApps": {
+          "description": "If true, all apps in the source will be cherry picked. This will override  {@link  appBundleIds } .\n\nDefaults to false.",
+          "type": "boolean"
+        },
+        "allNews": {
+          "description": "If true, all news in the source will be cherry picked. This will override  {@link  newsIds } .\n\nDefaults to false.",
+          "type": "boolean"
+        },
+        "appBundleIds": {
+          "description": "An array of app bundleIdentifiers to cherry pick.\n\nIf  {@link  allApps }  is true, this option will do nothing.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "newsIds": {
+          "description": "An array of news identifiers to cherry pick.\n\nIf  {@link  allNews }  is true, this option will do nothing.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "const": "source",
+          "type": "string"
+        },
+        "url": {
+          "description": "The URL for the source.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "url"
+      ],
+      "type": "object"
+    },
+    "Version": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "description": "This should be the date that you are releasing your application, and should be written in the format `YYYY-MM-DD` (other formats standard formats will work as well, but this is the only info required and shown to the user).\n\nIf you are planning on releasing your application in the future, after everyone has installed your source, there is an additional format available: `YYYY-MM-DDTHH:MM:SS`\n\nUsing this format will create an automatic timer countdown to the release time specified. Please note that the time is automatically assumed to be UTC and uses a 24 hour clock.\n\nIf you would rather use the time in your timezone, add `-08:00` to the end of the date, where that `-08` corresponds to the number of hours difference between UTC and your timezone. It is also important to note that UTC does not change with daylight saving time, so be careful if you are releasing around that time of year as it can be easy to miscalculate.",
+          "type": "string"
+        },
+        "downloadURL": {
+          "description": "This should point directly to wherever your IPA is hosted.\n\nIf you are planning on releasing your app in the future, this property is still required but it doesn't have to actually point to a valid file.",
+          "type": "string"
+        },
+        "localizedDescription": {
+          "description": "Use this to tell the user what new features you introduced or what bugs you squashed with the latest version.",
+          "type": "string"
+        },
+        "maxOSVersion": {
+          "description": "These are used to indicate the iOS version restrictions that your app may have (inclusively). It also allows you to support multiple different versions of your app that can support different iOS version ranges.",
+          "type": "string"
+        },
+        "minOSVersion": {
+          "description": "These are used to indicate the iOS version restrictions that your app may have (inclusively). It also allows you to support multiple different versions of your app that can support different iOS version ranges.",
+          "type": "string"
+        },
+        "size": {
+          "description": "This is an integer value that should be set equivalent to the size of your IPA in bytes. This gives the user an idea of how large the application is before they install.",
+          "type": "number"
+        },
+        "version": {
+          "description": "This must match your application's `CFBundleShortVersionString` (located in Info.plist) in order for SideStore updates to work properly.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "date",
+        "downloadURL",
+        "size"
+      ],
+      "type": "object"
+    }
+  }
+}
