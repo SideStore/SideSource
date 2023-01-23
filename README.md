@@ -24,8 +24,6 @@ Table of Contents:
     - [Making your own functions](#making-your-own-functions)
         - [Arguments](#arguments)
 
----
-
 ## Features
 
 -   Fully documented with guides on setup and advanced features
@@ -41,21 +39,15 @@ Table of Contents:
     -   Reset cache
     -   Preview and reset cache require a key that you can choose
 
----
-
 ## Example
 
 [apps.sidestore.io](https://apps.sidestore.io) is powered by SideSource, and you can view the configs and source code at https://github.com/SideStore/SideSource/tree/main/example. It has multiple
 different sources for each of the release channels (stable, beta and nightly) and uses custom functions to parse GitHub releases for changelog and other info.
 
----
-
 ## Guides
 
 -   [Initial Cloudflare Worker Setup](#initial-cloudflare-worker-setup): A step by step guide on setting up a Cloudflare Worker and integrating it with SideSource.
 -   [Functions](#functions): Detailed documentation on functions. Includes info on built in functions and a guide on how to create your own functions and use them in your source.
-
----
 
 ## Initial Cloudflare Worker Setup
 
@@ -304,8 +296,6 @@ wrangler publish
 If you want to use a custom domain for your worker (and allow SideSource to cache results), please see
 [Cloudflare's documentation](https://developers.cloudflare.com/workers/platform/triggers/custom-domains/).
 
----
-
 ## Functions
 
 Functions allow for dynamic logic that isn't possible to specify in a JSON config.
@@ -323,15 +313,21 @@ As with any function, built in functions can be used with the format `function:<
 
 This input would result in an unc0ver app being added into the source.
 
+---
+
 #### `ipaAssetUpdatedAtToSourceDate`
 
 This function only works for GitHub input lambdas, and it parses the ipaAsset's updated_at property and turns it into a date compatible with source versions.
 
 This function is currently the default for [dateLambda](https://sidestore.io/sidesource/interfaces/GitHubInput.html#dateLambda)
 
+---
+
 #### `makeUnc0verApp`
 
 This function only works for custom inputs, and it parses https://unc0ver.dev/releases.json and creates an app from it.
+
+---
 
 ### Making your own functions
 
@@ -350,6 +346,8 @@ makeSourceHandler({
 ```
 
 Then, you can use this function in properties that allow it as `function:myFunction`.
+
+---
 
 #### Arguments
 

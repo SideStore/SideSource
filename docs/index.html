@@ -46,7 +46,6 @@
 </ul>
 </li>
 </ul>
-<hr>
 
 <a href="#features" id="features" style="color: inherit; text-decoration: none;">
   <h2>Features</h2>
@@ -69,14 +68,12 @@
 </ul>
 </li>
 </ul>
-<hr>
 
 <a href="#example" id="example" style="color: inherit; text-decoration: none;">
   <h2>Example</h2>
 </a>
 <p><a href="https://apps.sidestore.io">apps.sidestore.io</a> is powered by SideSource, and you can view the configs and source code at <a href="https://github.com/SideStore/SideSource/tree/main/example">https://github.com/SideStore/SideSource/tree/main/example</a>. It has multiple
 different sources for each of the release channels (stable, beta and nightly) and uses custom functions to parse GitHub releases for changelog and other info.</p>
-<hr>
 
 <a href="#guides" id="guides" style="color: inherit; text-decoration: none;">
   <h2>Guides</h2>
@@ -85,7 +82,6 @@ different sources for each of the release channels (stable, beta and nightly) an
 <li><a href="#initial-cloudflare-worker-setup">Initial Cloudflare Worker Setup</a>: A step by step guide on setting up a Cloudflare Worker and integrating it with SideSource.</li>
 <li><a href="#functions">Functions</a>: Detailed documentation on functions. Includes info on built in functions and a guide on how to create your own functions and use them in your source.</li>
 </ul>
-<hr>
 
 <a href="#initial-cloudflare-worker-setup" id="initial-cloudflare-worker-setup" style="color: inherit; text-decoration: none;">
   <h2>Initial Cloudflare Worker Setup</h2>
@@ -233,7 +229,6 @@ settings)</li>
 </code></pre>
 <p>If you want to use a custom domain for your worker (and allow SideSource to cache results), please see
 <a href="https://developers.cloudflare.com/workers/platform/triggers/custom-domains/">Cloudflare&#39;s documentation</a>.</p>
-<hr>
 
 <a href="#functions" id="functions" style="color: inherit; text-decoration: none;">
   <h2>Functions</h2>
@@ -247,17 +242,20 @@ settings)</li>
 <pre><code class="language-json"><span class="hl-0">{</span><br/><span class="hl-0">    </span><span class="hl-9">&quot;type&quot;</span><span class="hl-0">: </span><span class="hl-1">&quot;custom&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-9">&quot;functionName&quot;</span><span class="hl-0">: </span><span class="hl-1">&quot;function:makeUnc0verApp&quot;</span><br/><span class="hl-0">}</span>
 </code></pre>
 <p>This input would result in an unc0ver app being added into the source.</p>
+<hr>
 
 <a href="#ipaassetupdatedattosourcedate" id="ipaassetupdatedattosourcedate" style="color: inherit; text-decoration: none;">
   <h4><code>ipaAssetUpdatedAtToSourceDate</code></h4>
 </a>
 <p>This function only works for GitHub input lambdas, and it parses the ipaAsset&#39;s updated_at property and turns it into a date compatible with source versions.</p>
 <p>This function is currently the default for <a href="https://sidestore.io/sidesource/interfaces/GitHubInput.html#dateLambda">dateLambda</a></p>
+<hr>
 
 <a href="#makeunc0verapp" id="makeunc0verapp" style="color: inherit; text-decoration: none;">
   <h4><code>makeUnc0verApp</code></h4>
 </a>
 <p>This function only works for custom inputs, and it parses <a href="https://unc0ver.dev/releases.json">https://unc0ver.dev/releases.json</a> and creates an app from it.</p>
+<hr>
 
 <a href="#making-your-own-functions" id="making-your-own-functions" style="color: inherit; text-decoration: none;">
   <h3>Making your own functions</h3>
@@ -268,6 +266,7 @@ settings)</li>
 <pre><code class="language-ts"><span class="hl-4">makeSourceHandler</span><span class="hl-0">({</span><br/><span class="hl-0">    &lt;your config&gt;</span><br/><span class="hl-0">}, {</span><br/><span class="hl-0">    </span><span class="hl-4">myFunction</span><span class="hl-3">:</span><span class="hl-0"> () </span><span class="hl-5">=&gt;</span><span class="hl-0"> </span><span class="hl-1">&quot;example&quot;</span><br/><span class="hl-0">});</span>
 </code></pre>
 <p>Then, you can use this function in properties that allow it as <code>function:myFunction</code>.</p>
+<hr>
 
 <a href="#arguments" id="arguments" style="color: inherit; text-decoration: none;">
   <h4>Arguments</h4>
