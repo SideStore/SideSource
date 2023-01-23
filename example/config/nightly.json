@@ -1,6 +1,6 @@
 {
-    "$schema": "https://github.com/SideStore/SideSource/raw/wip/dist/schema.json",
-    "baseConfigURL": "github:SideStore/SideSource/example/config/stable.json?wip",
+    "$schema": "https://github.com/SideStore/SideSource/raw/main/dist/schema.json",
+    "baseConfigURL": "github:SideStore/SideSource/example/config/stable.json",
     "source": {
         "name": "SideStore (Nightly)",
         "identifier": "com.SideStore.SideStore.Nightly"

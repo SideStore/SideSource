@@ -113,8 +113,10 @@ out
 # Nuxt.js build / generate output
 
 .nuxt
+**/dist
 dist/*
 !dist/schema.json
+test/
 
 # Gatsby files
 

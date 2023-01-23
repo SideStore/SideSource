@@ -6,7 +6,7 @@ import functions from "../functions";
 export default function (router: RouterType) {
     const handler = makeSourceHandler(
         {
-            configURL: "github:SideStore/SideSource/example/config/beta.json?wip",
+            configURL: "github:SideStore/SideSource/example/config/beta.json",
         },
         functions,
     );
