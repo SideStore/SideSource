@@ -8,7 +8,7 @@
         {
             "type": "github",
             "repo": "SideStore/SideStore",
-            "tag": "latest",
+            "tag": "nightly",
             // https://github.com/SideStore/SideSource/blob/main/example/src/functions.ts
             "changelogLambda": "function:changelog",
             "dateLambda": "function:date",
