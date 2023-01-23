@@ -4,6 +4,8 @@ SideSource is a JavaScript/TypeScript framework for creating SideStore sources. 
 
 Web docs are available at https://sidestore.io/sidesource.
 
+Changelog is available at https://github.com/SideStore/SideSource/blob/main/CHANGELOG.md.
+
 Table of Contents:
 
 - [Features](#features)
