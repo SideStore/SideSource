@@ -3,7 +3,7 @@ import { Config, GitHubInput, SourceInput } from "#/struct/typedoc";
 import { err } from "./errors";
 import { merge } from "./util";
 
-export function configDefaults(config: Config) {
+export function configDefaults(config: Config, skipRemoteConfigCheck = false) {
     config = merge<Config>(
         {
             remoteConfig: true,
@@ -13,7 +13,7 @@ export function configDefaults(config: Config) {
         config,
     );
 
-    if (config.remoteConfig && !config.configURL) throw err`\`remoteConfig\` requires a \`configURL\` to be specified`;
+    if (!skipRemoteConfigCheck && config.remoteConfig && !config.configURL) throw err`\`remoteConfig\` requires a \`configURL\` to be specified`;
 
     return config;
 }

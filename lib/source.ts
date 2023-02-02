@@ -41,6 +41,9 @@ export async function makeSource(config: Config, functions: Functions = {}) {
         info("Successfully applied base config");
     }
 
+    // Ensure that we've set all the defaults; using a remote config will unset them.
+    config = configDefaults(config, true);
+
     if (!isConfig(config)) throw invalidConfig(config);
     if (!config.source || !config.source.name || !config.source.identifier) throw invalidSourceMetadata(config);
 
@@ -105,9 +108,10 @@ Security:
 
             const sendArguments = () =>
                 info(
-                    `Using ${input.type} input with arguments:${Object.entries(input)
-                        .map(([key, val]) => `\n    ${key}: ${pretty(val, 2)}`)
-                        .join("")}`,
+                    `Using ${input.type} input with arguments:` +
+                        Object.entries(input)
+                            .map(([key, val]) => `\n    ${key}: ${pretty(val, 2)}`)
+                            .join(""),
                 );
             switch (input.type) {
                 case "github": {

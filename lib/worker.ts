@@ -44,7 +44,7 @@ export function makeSourceHandler(config: Config, functions: Functions = {}) {
                 },
             });
 
-            if (newConfig.cacheTime! > 0 && shouldCache) {
+            if (newConfig.cacheTime > 0 && shouldCache) {
                 res.headers.set("Cache-Control", `max-age=${newConfig.cacheTime! * 60}`);
                 ctx.waitUntil(caches.default.put(req, res.clone()));
             } else if (!shouldCache) {
