@@ -20,14 +20,14 @@
                 "developerName": "SideStore Team",
                 "localizedDescription": "SideStore is an alternative app store for non-jailbroken devices.\n\nSideStore allows you to sideload other .ipa files and apps from the Files app or via the SideStore Library.",
                 "tintColor": "A405FA",
-                "iconURL": "https://apps.sidestore.io/apps/sidestore/v0.1.1/icon.png",
+                "iconURL": "https://sidestore.io/assets/icon.png",
                 "screenshotURLs": [
-                    "https://apps.sidestore.io/apps/sidestore/v0.1.1/browse-dark.png",
-                    "https://apps.sidestore.io/apps/sidestore/v0.1.1/apps-dark.png",
-                    "https://apps.sidestore.io/apps/sidestore/v0.1.1/news-dark.png",
-                    "https://apps.sidestore.io/apps/sidestore/v0.1.1/browse-light.png",
-                    "https://apps.sidestore.io/apps/sidestore/v0.1.1/apps-light.png",
-                    "https://apps.sidestore.io/apps/sidestore/v0.1.1/news-light.png"
+                    "https://sidestore.io/assets/screenshots/dark/browse.png",
+                    "https://sidestore.io/assets/screenshots/dark/apps.png",
+                    "https://sidestore.io/assets/screenshots/dark/news.png",
+                    "https://sidestore.io/assets/screenshots/light/browse.png",
+                    "https://sidestore.io/assets/screenshots/light/apps.png",
+                    "https://sidestore.io/assets/screenshots/light/news.png"
                 ],
                 "permissions": [
                     {
