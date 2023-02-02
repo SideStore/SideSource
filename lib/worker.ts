@@ -58,14 +58,15 @@ export function makeSourceHandler(config: Config, functions: Functions = {}) {
                 if ("KEY" in env) {
                     const url = new URL(req.url);
                     if (url.pathname.includes(env.KEY)) {
-                        // Clone array so we don't modify the original
-                        const routes = [...origRoutes];
+                        const routes: string[] = [];
 
-                        // Create duplicate routes with trailing slashes
-                        // Clone it again so we don't make an infinite loop
-                        for (const route of [...routes]) {
-                            const withTrailingSlash = `${route}/`;
-                            if (routes.indexOf(withTrailingSlash) == -1) routes.push(withTrailingSlash);
+                        for (let route of [...origRoutes]) {
+                            const checks = [`/${route.replace(/^\//g, "")}`, `/${route.replace(/^\//g, "").replace(/\/$/g, "")}/`];
+
+                            if (route.startsWith("/")) checks.push(`${route.replace(/\/$/g, "")}/`);
+                            else checks.push(`/${route.replace(/\/$/g, "")}`);
+
+                            for (const check of checks) if (!routes.includes(check)) routes.push(check);
                         }
 
                         for (const route of routes) {
