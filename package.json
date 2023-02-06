@@ -43,6 +43,7 @@
     "scripts": {
         "prepare": "ts-patch install",
         "build": "rm -r dist/ && tsc && ts-json-schema-generator -p './lib/struct/config.ts' -o dist/schema.json && typedoc lib/struct/typedoc.ts --searchInComments --gitRevision main",
+        "prepublish": "bun run build",
         "check": "tsc --noEmit",
         "format": "prettier --plugin @trivago/prettier-plugin-sort-imports --config ~/.prettierrc.json ./lib ./example/src ./example/config --write"
     }
