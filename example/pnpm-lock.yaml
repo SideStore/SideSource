@@ -18,7 +18,7 @@ devDependencies:
   '@octokit/openapi-types': 16.0.0
   esbuild-plugin-glob-import: 0.2.0
   typescript: 4.9.4
-  wrangler: github.com/naturecodevoid/wrangler2-esbuild-plugins/1f4ee5e0f57dfaef6c070ff4365af036fa64c6a7
+  wrangler: github.com/naturecodevoid/wrangler2-esbuild-plugins/a47b52c6c45290bde56b1df5d6e1a69edfa908e4
 
 packages:
 
@@ -1016,10 +1016,10 @@ packages:
       stack-trace: 0.0.10
     dev: true
 
-  github.com/naturecodevoid/wrangler2-esbuild-plugins/1f4ee5e0f57dfaef6c070ff4365af036fa64c6a7:
-    resolution: {tarball: https://codeload.github.com/naturecodevoid/wrangler2-esbuild-plugins/tar.gz/1f4ee5e0f57dfaef6c070ff4365af036fa64c6a7}
+  github.com/naturecodevoid/wrangler2-esbuild-plugins/a47b52c6c45290bde56b1df5d6e1a69edfa908e4:
+    resolution: {tarball: https://codeload.github.com/naturecodevoid/wrangler2-esbuild-plugins/tar.gz/a47b52c6c45290bde56b1df5d6e1a69edfa908e4}
     name: wrangler
-    version: 2.8.0-esbuild-plugins
+    version: 2.9.0-esbuild-plugins
     engines: {node: '>=16.13.0'}
     hasBin: true
     dependencies:

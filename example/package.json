@@ -1,5 +1,5 @@
 {
-    "name": "sidesource",
+    "name": "sidesource-example",
     "type": "module",
     "version": "0.0.0",
     "dependencies": {
@@ -16,6 +16,7 @@
     "private": true,
     "scripts": {
         "dev": "wrangler dev --local",
+        "sidesource-dev": "cd .. && pnpm exec tsc && cd example && wrangler dev --local",
         "deploy": "wrangler publish",
         "deploy-staging": "wrangler publish --env staging",
         "tail": "wrangler tail sidesource-example --format pretty"
