@@ -8,7 +8,8 @@
         {
             "type": "github",
             "repo": "SideStore/SideStore",
-            "tag": "nightly",
+            "tag": "latest",
+            "allowPrereleases": true, // TODO: remove once we stop using prereleases
             // https://github.com/SideStore/SideSource/blob/main/example/src/functions.ts
             "changelogLambda": "function:changelog",
             "dateLambda": "function:date",
