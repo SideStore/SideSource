@@ -1,14 +1,22 @@
 # SideSource
 
-[![npm](https://img.shields.io/npm/v/sidesource?style=flat-square)](https://npmjs.com/package/sidesource)
+_A JavaScript/TypeScript framework for creating SideStore sources_ 
 
-SideSource is a JavaScript/TypeScript framework for creating SideStore sources. It also has easy to use Cloudflare workers integration.
+It also has easy to use Cloudflare workers integration.
+
+[![npm](https://img.shields.io/npm/v/sidesource?style=flat-square)](https://npmjs.com/package/sidesource)
+[![pages-build-deployment](https://github.com/SideStore/SideSource/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/SideStore/SideSource/actions/workflows/pages/pages-build-deployment)
+
+![Alt](https://repobeats.axiom.co/api/embed/31c86cbee2a36d795cbaedca5eba94c5523562b6.svg "Repobeats analytics image")
+
+## FAQ
 
 Web docs are available at https://sidestore.io/SideSource.
 
 Changelog is available at https://github.com/SideStore/SideSource/blob/main/CHANGELOG.md.
 
-Table of Contents:
+
+## Table of Contents:
 
 - [Features](#features)
 - [Example](#example)
